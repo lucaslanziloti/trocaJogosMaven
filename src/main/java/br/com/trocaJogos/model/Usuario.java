@@ -3,6 +3,7 @@ package br.com.trocaJogos.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +12,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
- *
- * @author lucas
+ * @author lucas lanziloti
+ * @author weverton
+ * @author joao lucas
  */
 @Entity
 @Table(name = "usr_usuario")
 public class Usuario implements Serializable {
+
+    private static final long serialVersionUID = 1580056085369485374L;
     
     @Id
     @GeneratedValue
@@ -66,5 +70,38 @@ public class Usuario implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
     }
 }

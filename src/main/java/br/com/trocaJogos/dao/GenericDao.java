@@ -1,6 +1,8 @@
 package br.com.trocaJogos.dao;
 
 import br.com.trocaJogos.util.HibernateUtil;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -40,4 +42,10 @@ public class GenericDao<T> {
 
         session.close();
     }
+    
+//    public T carregar(Integer id){
+//        Session session = hibernateUtil.getSession();
+//        
+//        session.
+//    }
 }
