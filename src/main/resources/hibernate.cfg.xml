@@ -12,5 +12,8 @@
         <mapping class="br.com.trocaJogos.model.Endereco" />
         <mapping class="br.com.trocaJogos.model.Cidade" />
         <mapping class="br.com.trocaJogos.model.Logradouro" />
+        <mapping class="br.com.trocaJogos.model.Genero" />
+        <mapping class="br.com.trocaJogos.model.Plataforma" />
+        <mapping class="br.com.trocaJogos.model.Jogo" />
     </session-factory>
 </hibernate-configuration>

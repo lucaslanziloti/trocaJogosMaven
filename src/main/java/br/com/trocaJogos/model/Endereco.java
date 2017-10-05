@@ -11,7 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author lucas
+ * @author lucas lanziloti
+ * @author weverton
+ * @author joao lucas
  */
 @Entity
 @Table(name = "end_endereco")
