@@ -49,12 +49,12 @@
             <artifactId>primefaces</artifactId>
             <version>6.1</version>
         </dependency>
-    
-        <dependency>
+        
+<!--        <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>
-        </dependency>
+        </dependency>-->
         
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -118,5 +118,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

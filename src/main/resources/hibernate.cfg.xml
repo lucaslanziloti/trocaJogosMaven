@@ -7,6 +7,7 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/trocaJogos?zeroDateTimeBehavior=convertToNull</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
+        <property name="hbm2ddl.auto" value="create"/>
     
         <mapping class="br.com.trocaJogos.model.Usuario" />
         <mapping class="br.com.trocaJogos.model.Endereco" />
