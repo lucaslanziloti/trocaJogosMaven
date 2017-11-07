@@ -2,19 +2,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body style="margin-left: 20%; margin-right: 20%; margin-top: 50px;">
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <img src="#{facesContext.externalContext.request.contextPath}/resources/loader.gif" width="100"/>
+        </p:dialog>
+
+        <f:facet name="header">
+            <p:messages id="msg" />
+        </f:facet>
+
         <h:form>
             <p:panel header="Cadastro de Jogos">
                 <h:panelGrid>
                     <h:outputText value="Nome do Jogo"/>
-                    <p:inputText value="#{jogoMb.jogo.descricao}"/>
+                    <p:inputText value="#{jogoMb.jogo.descricao}" required="true" requiredMessage="Informe o nome do jogo" style="width: 278px;"/>
                 </h:panelGrid>
 
-                <p:commandButton value="Salvar" actionListener="#{jogoMb.salvar()}" process="@form"/>
+                <h:panelGrid>
+                    <p:outputLabel for="genero" value="Gênero:" />
+                    <p:selectOneMenu id="genero" value="#{jogoMb.jogo.genero}"  required="true"
+                                     converter="generoConverter" style="width: 250px;">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{jogoMb.generos}" var="genero" itemValue="#{genero}" itemLabel="#{genero.descricao}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <h:panelGrid>
+                    <p:outputLabel for="plataforma" value="Plataforma:" />
+                    <p:selectOneMenu id="plataforma" value="#{jogoMb.jogo.plataforma}" required="true"
+                                     converter="plataformaConverter" style="width: 250px;">
+                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                        <f:selectItems value="#{jogoMb.plataformas}" var="plataforma" itemValue="#{plataforma}" itemLabel="#{plataforma.descricao}"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <h:panelGrid style="width: 100%; margin-top: 20px;">
+                    <h:panelGrid style="float: right;" columns="2">
+                        <p:commandButton value="Salvar" 
+                                         actionListener="#{jogoMb.salvar()}" 
+                                         process="@form" 
+                                         update="@form :msg"
+                                         icon="ui-icon-check"
+                                         iconPos="right"/>
+
+                        <p:commandButton value="Cancelar" 
+                                         actionListener="#{jogoMb.cancelar()}" 
+                                         update="@form :msg"
+                                         immediate="true"
+                                         icon="ui-icon-cancel"
+                                         iconPos="right"/>
+                    </h:panelGrid>
+                </h:panelGrid>
             </p:panel>
         </h:form>
     </h:body>

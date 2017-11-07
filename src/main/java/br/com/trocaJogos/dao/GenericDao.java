@@ -1,6 +1,7 @@
 package br.com.trocaJogos.dao;
 
 import br.com.trocaJogos.util.HibernateUtil;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -52,5 +53,11 @@ public class GenericDao<T> {
         Session session = hibernateUtil.getSession();
         
         return (T) session.get(this.type, id);
+    }
+    
+    public List<T> listaTodos(){
+        Session session = hibernateUtil.getSession();
+        
+        return session.createQuery("select t from " + this.type.getSimpleName() + " t ").list();
     }
 }
