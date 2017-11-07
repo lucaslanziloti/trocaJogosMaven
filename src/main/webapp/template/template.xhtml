@@ -9,11 +9,11 @@
       >
 
     <h:head>
-        <link rel="icon" href="#{facesContext.externalContext.request.contextPath}/resources/LOGO_NRG_OFICIAL_SOMBRA.png" sizes="16x16"/>
+        <link rel="icon" href="#{facesContext.externalContext.request.contextPath}/resources/logo.png" sizes="16x16"/>
         <h:outputStylesheet name="trocaJogos.css" library="css"/>
     </h:head>
 
-    <h:body style="background-image: url('#{facesContext.externalContext.request.contextPath}/resources/Jumping_Game_Background_4269x2133.jpg'); background-size: cover;">
+    <h:body style="background-image: url('#{facesContext.externalContext.request.contextPath}/resources/Jumping_Game_Background_4269x2133.jpg'); background-size: cover; min-width: 800px;">
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
@@ -26,7 +26,7 @@
         </div>
         <div id="page">
 
-            <div id="header">
+            <div id="header" style="margin-left: 17%; margin-right: 17%; margin-top: 15px; margin-bottom: 15px;">
                 <ui:insert name="header" >
                     <ui:include src="commonHeader.xhtml" />
                 </ui:insert>
