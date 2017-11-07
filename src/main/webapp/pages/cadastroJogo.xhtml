@@ -8,32 +8,57 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body  >
+    <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form  enctype="multipart/form-data" id="form">
                     <p:panel header="Cadastro de Jogos">
-                        <h:panelGrid>
-                            <h:outputText value="Nome do Jogo"/>
-                            <p:inputText value="#{jogoMb.jogo.descricao}" required="true" requiredMessage="Informe o nome do jogo" style="width: 278px;"/>
-                        </h:panelGrid>
+                        <h:panelGrid style="width: 100%;" columns="2">
+                            <h:panelGrid style="width: 49%;">
+                                <h:panelGrid>
+                                    <h:outputText  />
+                                    <p:outputLabel for="descricao" value="Nome do Jogo"/>
+                                    <p:inputText id="descricao" value="#{jogoMb.jogo.descricao}" 
+                                                 required="true" requiredMessage="Informe o nome do jogo" 
+                                                 style="width: 278px;"/>
+                                </h:panelGrid>
 
-                        <h:panelGrid>
-                            <p:outputLabel for="genero" value="Gênero:" />
-                            <p:selectOneMenu id="genero" value="#{jogoMb.jogo.genero}"  required="true"
-                                             converter="generoConverter" style="width: 250px;">
-                                <f:selectItem itemLabel="Selecione" itemValue="" />
-                                <f:selectItems value="#{jogoMb.generos}" var="genero" itemValue="#{genero}" itemLabel="#{genero.descricao}"/>
-                            </p:selectOneMenu>
-                        </h:panelGrid>
+                                <h:panelGrid>
+                                    <p:outputLabel for="genero" value="Gênero:" />
+                                    <p:selectOneMenu id="genero" value="#{jogoMb.jogo.genero}" 
+                                                     required="true" requiredMessage="Informe o genêro"
+                                                     converter="generoConverter" style="width: 250px;">
+                                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                                        <f:selectItems value="#{jogoMb.generos}" var="genero" itemValue="#{genero}" itemLabel="#{genero.descricao}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
 
-                        <h:panelGrid>
-                            <p:outputLabel for="plataforma" value="Plataforma:" />
-                            <p:selectOneMenu id="plataforma" value="#{jogoMb.jogo.plataforma}" required="true"
-                                             converter="plataformaConverter" style="width: 250px;">
-                                <f:selectItem itemLabel="Selecione" itemValue="" />
-                                <f:selectItems value="#{jogoMb.plataformas}" var="plataforma" itemValue="#{plataforma}" itemLabel="#{plataforma.descricao}"/>
-                            </p:selectOneMenu>
+                                <h:panelGrid>
+                                    <p:outputLabel for="plataforma" value="Plataforma:" />
+                                    <p:selectOneMenu id="plataforma" value="#{jogoMb.jogo.plataforma}" 
+                                                     required="true" requiredMessage="Informe a plataforma"
+                                                     converter="plataformaConverter" style="width: 250px;">
+                                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                                        <f:selectItems value="#{jogoMb.plataformas}" var="plataforma" itemValue="#{plataforma}" itemLabel="#{plataforma.descricao}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="panelGridUpload">
+                                    <p:outputLabel for="upload" value="Foto:" />
+                                    <p:fileUpload id="upload"
+                                                  fileUploadListener="#{jogoMb.handleFileUpload}" 
+                                                  mode="advanced" 
+                                                  style="width: 286px;"
+                                                  update="panelGridUpload :form:panelGridImg :msg"
+                                                  auto="true" 
+                                                  sizeLimit="300000" 
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png|jpg)$/" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="panelGridImg" >
+                                <img id="imgJogo" alt="star" src="data:image/#{jogoMb.extensao};base64,#{jogoMb.base64}" />
+                            </h:panelGrid>
                         </h:panelGrid>
 
                         <h:panelGrid style="width: 100%; margin-top: 20px;">

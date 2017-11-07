@@ -34,6 +34,9 @@ public class Jogo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "plt_id", referencedColumnName = "plt_id")
     private Plataforma plataforma;
+    
+    @Column(name = "jgo_img", columnDefinition = "TEXT")
+    private String img;
 
     public Integer getId() {
         return id;
@@ -65,6 +68,14 @@ public class Jogo implements Serializable {
 
     public void setPlataforma(Plataforma plataforma) {
         this.plataforma = plataforma;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Override
