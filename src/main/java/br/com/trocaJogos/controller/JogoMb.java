@@ -43,7 +43,6 @@ public class JogoMb {
     private String extensao;
 
     @PostConstruct
-
     private void init() {
         generos = generoDao.listaTodos();
         plataformas = plataformaDao.listaTodos();

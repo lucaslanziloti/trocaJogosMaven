@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <h:form  enctype="multipart/form-data" id="form">
+                    <p:panel header="Cadastro de Usuário">
+                        <h:panelGrid style="width: 100%;" columns="2">
+                            <h:panelGrid style="width: 49%;">
+                                <h:panelGrid>
+                                    <h:outputText  />
+                                    <p:outputLabel for="nome" value="Nome"/>
+                                    <p:inputText id="nome" value="#{cadastroUsuarioMb.usuario.nome}" 
+                                                 required="true" requiredMessage="Informe seu nome" 
+                                                 style="width: 278px;"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <h:outputText />
+                                    <p:outputLabel for="dataNasc" value="Data de Nascimento"/>
+                                    <p:calendar id="dataNasc" 
+                                                value="#{cadastroUsuarioMb.usuario.dataNascimento}" 
+                                                showOn="button"
+                                                pattern="dd/MM/yyyy"
+                                                required="true" 
+                                                requiredMessage="Informe sua data de Nascimento"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <h:outputText />
+                                    <p:outputLabel for="cpf" value="CPF"/>
+                                    <p:inputText id="cpf" value="#{cadastroUsuarioMb.usuario.cpf}"
+                                                required="true" requiredMessage="Informe seu CPF" 
+                                                style="width: 278px;"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <h:outputText />
+                                    <p:outputLabel for="rg" value="RG"/>
+                                    <p:inputText id="rg" value="#{cadastroUsuarioMb.usuario.rg}"
+                                                required="true" requiredMessage="Informe seu RG" 
+                                                style="width: 278px;"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <h:outputText />
+                                    <p:outputLabel for="email" value="E-mail"/>
+                                    <p:inputText id="email" value="#{cadastroUsuarioMb.usuario.email}"
+                                                required="true" requiredMessage="Informe seu e-mail" 
+                                                style="width: 278px;"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="matchGrid" cellpadding="5">                   
+                                    <h:outputLabel for="pwd1" value="Senha:" />
+                                    <p:password id="pwd1" value="#{cadastroUsuarioMb.usuario.senha}" 
+                                                match="pwd2" 
+                                                label="Senha 1" 
+                                                required="true"
+                                                feedback="true"
+                                                goodLabel="Boa"
+                                                weakLabel="fraca"
+                                                promptLabel="Insira um senha"
+                                                strongLabel="Forte"/>
+
+                                    <h:outputLabel for="pwd2" value="Confirme a Senha:" />
+                                    <p:password id="pwd2" 
+                                                value="#{cadastroUsuarioMb.usuario.senha}" 
+                                                label="Senha 2" 
+                                                required="true" />
+                                </h:panelGrid>
+
+                                <h:panelGrid id="panelGridUpload">
+                                    <p:outputLabel for="upload" value="Avatar:" />
+                                    <p:fileUpload id="upload"
+                                                  fileUploadListener="#{cadastroUsuarioMb.handleFileUpload}" 
+                                                  mode="advanced" 
+                                                  style="width: 286px;"
+                                                  update="panelGridUpload :form:panelGridImg :msg"
+                                                  auto="true" 
+                                                  sizeLimit="300000" 
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png|jpg)$/" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid id="panelGridImg" style="float: right; margin-right: 15px;">
+                                <img id="imgJogo" alt="star" src="data:image/#{cadastroUsuarioMb.extensao};base64,#{cadastroUsuarioMb.base64}" />
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <h:panelGrid style="width: 100%; margin-top: 20px;">
+                            <h:panelGrid style="float: right;" columns="2">
+                                <p:commandButton value="Salvar" 
+                                                 actionListener="#{cadastroUsuarioMb.salvar()}" 
+                                                 process="@form" 
+                                                 update="@form :msg"
+                                                 icon="ui-icon-check"
+                                                 iconPos="right"/>
+
+                                <p:commandButton value="Cancelar" 
+                                                 action="#{cadastroUsuarioMb.cancelar()}" 
+                                                 update="@form :msg"
+                                                 immediate="true"
+                                                 icon="ui-icon-cancel"
+                                                 iconPos="right"/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

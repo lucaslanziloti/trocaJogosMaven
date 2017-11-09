@@ -35,7 +35,7 @@ public class Jogo implements Serializable {
     @JoinColumn(name = "plt_id", referencedColumnName = "plt_id")
     private Plataforma plataforma;
     
-    @Column(name = "jgo_img", columnDefinition = "TEXT")
+    @Column(name = "jgo_img", columnDefinition = "LONGTEXT", nullable = true)
     private String img;
 
     public Integer getId() {

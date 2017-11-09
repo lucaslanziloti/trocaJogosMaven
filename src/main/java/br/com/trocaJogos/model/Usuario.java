@@ -30,7 +30,7 @@ public class Usuario implements Serializable {
     @Column(name = "usr_nome", nullable = false)
     private String nome;
 
-    @Column(name = "usr_data_nasc")
+    @Column(name = "usr_data_nasc", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataNascimento;
 
@@ -39,6 +39,15 @@ public class Usuario implements Serializable {
 
     @Column(name = "usr_rg", nullable = false)
     private String rg;
+
+    @Column(name = "usr_email", nullable = false)
+    private String email;
+
+    @Column(name = "usr_senha", nullable = false)
+    private String senha;
+    
+    @Column(name = "jgo_avatar", columnDefinition = "LONGTEXT", nullable = true)
+    private String img;
 
     public Integer getId() {
         return id;
@@ -78,6 +87,30 @@ public class Usuario implements Serializable {
 
     public void setRg(String rg) {
         this.rg = rg;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Override
