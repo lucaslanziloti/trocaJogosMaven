@@ -8,18 +8,27 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
         <ui:composition>
-
             <h:panelGrid style="width: 100%;" columns="2">
                 <h:panelGrid style="width: 49%;">
                     <img src="#{facesContext.externalContext.request.contextPath}/resources/prancheta-1.png" width="350"/>
                 </h:panelGrid>
 
-                <h:panelGrid id="panelGridImg" style="float: right;">
-                    sadsadsdasda
+                <h:panelGrid style="float: right; margin-right: 10%;">
+                    <div id="login">
+                        <a href="/pages/login.faces">Identifique-se</a>
+                        
+                        <img src="#{facesContext.externalContext.request.contextPath}/resources/icons/log-in.png" width="24" style="margin-left: 8px;"/>
+                    </div>
                 </h:panelGrid>
             </h:panelGrid>
 
-            
+            <p:menubar>
+                <p:menuitem value="CATÁLOGO" url="http://www.primefaces.org"/>
+                <p:menuitem value="CADASTRO JOGO" url="/pages/cadastroJogo.faces"/>
+                <p:menuitem value="MINHA CONTA" url="/pages/cadastroUsuario.faces"/>
+            </p:menubar>
+
+
         </ui:composition>
     </body>
 </html>
