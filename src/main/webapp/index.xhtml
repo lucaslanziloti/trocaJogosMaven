@@ -2,24 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Início</title>
     </h:head>
     <h:body>
-        Hello from Facelets
-        
-        <p:panel header="assdasadas">
-            sadssad
-        </p:panel>
-        
-        <h:panelGrid>
-            h:panelGrid1
-        </h:panelGrid>
-        
-        <h:panelGrid>
-            h:panelGrid2
-        </h:panelGrid>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <div id="boasVindas">
+                    <div id="texto">
+                        <span>Seja bem vindo a comunidade de trocas de jogos mais irada do Brasil!</span>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
-

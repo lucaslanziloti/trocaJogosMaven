@@ -13,17 +13,22 @@
                     <img src="#{facesContext.externalContext.request.contextPath}/resources/prancheta-1.png" width="350"/>
                 </h:panelGrid>
 
-                <h:panelGrid style="float: right; margin-right: 10%;">
+                <h:panelGrid style="float: right; margin-right: 10%;" rendered="#{loginMb.usuarioLogado.id == null}">
                     <div id="login">
-                        <a href="/pages/login.faces">Identifique-se</a>
+                        <a href="/trocaJogosMaven/pages/login.faces">Identifique-se</a>
                         
                         <img src="#{facesContext.externalContext.request.contextPath}/resources/icons/log-in.png" width="24" style="margin-left: 8px;"/>
                     </div>
                 </h:panelGrid>
+
+                <h:panelGrid style="float: right; margin-right: 10%;" rendered="#{loginMb.usuarioLogado.id != null}" styleClass="bemVindo">
+                    Bem vindo #{loginMb.usuarioLogado.nome}!
+                </h:panelGrid>
             </h:panelGrid>
 
             <p:menubar>
-                <p:menuitem value="CATÁLOGO" url="http://www.primefaces.org"/>
+                <p:menuitem value="INÍCIO" url="/index.faces"/>
+                <p:menuitem value="CATÁLOGO" url="/pages/catalogo.faces"/>
                 <p:menuitem value="CADASTRO JOGO" url="/pages/cadastroJogo.faces"/>
                 <p:menuitem value="MINHA CONTA" url="/pages/cadastroUsuario.faces"/>
             </p:menubar>

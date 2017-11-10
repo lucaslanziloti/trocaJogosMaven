@@ -46,3 +46,21 @@
 a{
     text-decoration: none;
 }
+
+.bemVindo{
+    font-family: "Queen of Clubs";
+    font-size: 30px;
+}
+
+#boasVindas{
+    background-color: #FFDF00;
+    border-radius: 1px;
+    font-family: "Queen of Clubs";
+    font-size: 30px;
+    width: 100%;
+    height: 300px;
+}
+
+#texto{
+    text-align: center;
+}
