@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Queen of Clubs";
+    src: url('#{resource["fonts/queenOfClubs.otf"]}');
+}
+
 #imgJogo {
     display: block;
     max-width:268px;
@@ -8,11 +13,19 @@
 
 #footer{
     height: 80px; 
-    background-color: #FFDF00; 
+    background-color: #212121; 
     text-align: center; 
     border-radius: 3px;
+    margin-left: 8%;
+    margin-right: 8%;
 }
 
 #footer a{
-
+    color: #FFD700;
+    text-decoration: none;
+    font-size: 50px;
+    font-family: "Queen of Clubs";
+    padding-left: 70px;
+    padding-right: 70px;
 }
+
