@@ -1,4 +1,3 @@
-
 package br.com.trocaJogos.model;
 
 import java.io.Serializable;
@@ -21,7 +20,7 @@ import javax.persistence.Temporal;
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1580056085369485374L;
-    
+
     @Id
     @GeneratedValue
     @Column(name = "usr_id", nullable = false)
@@ -45,7 +44,7 @@ public class Usuario implements Serializable {
 
     @Column(name = "usr_senha", nullable = false)
     private String senha;
-    
+
     @Column(name = "usr_avatar", columnDefinition = "LONGTEXT", nullable = true)
     private String img;
 
@@ -111,6 +110,13 @@ public class Usuario implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Boolean possuiFoto() {
+        if (this.img != null && !this.img.isEmpty()) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
     @Override

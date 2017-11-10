@@ -64,3 +64,8 @@ a{
 #texto{
     text-align: center;
 }
+
+#fotos img{
+    padding-left: 70px;
+    padding-right: 70px;
+}

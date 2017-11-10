@@ -19,6 +19,7 @@
                                     <h:outputText  />
                                     <p:outputLabel for="nome" value="Nome"/>
                                     <p:inputText id="nome" value="#{cadastroUsuarioMb.usuario.nome}" 
+                                                 disabled="#{not empty cadastroUsuarioMb.usuario.id}"
                                                  required="true" requiredMessage="Informe seu nome" 
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
@@ -32,6 +33,7 @@
                                                 pattern="dd/MM/yyyy"
                                                 required="true" 
                                                 styleClass="calendario"
+                                                disabled="#{not empty cadastroUsuarioMb.usuario.id}"
                                                 onfocus="mascaraCalendario();"
                                                 requiredMessage="Informe sua data de Nascimento"/>
                                 </h:panelGrid>
@@ -44,6 +46,7 @@
                                                  onkeypress="return aplicarMascara(this, '###.###.###-##', '/');"
                                                  required="true" 
                                                  requiredMessage="Informe seu CPF" 
+                                                 disabled="#{not empty cadastroUsuarioMb.usuario.id}"
                                                  maxlength="14"
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
@@ -53,6 +56,7 @@
                                     <p:outputLabel for="rg" value="RG"/>
                                     <p:inputText id="rg" value="#{cadastroUsuarioMb.usuario.rg}"
                                                  required="true" requiredMessage="Informe seu RG" 
+                                                 disabled="#{not empty cadastroUsuarioMb.usuario.id}"
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
 

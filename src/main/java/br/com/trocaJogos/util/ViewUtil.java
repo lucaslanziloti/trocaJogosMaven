@@ -1,6 +1,6 @@
 package br.com.trocaJogos.util;
 
-
+import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -73,6 +73,15 @@ public final class ViewUtil {
             return "https://" + context.getRequestServerName() + context.getRequestContextPath();
         } else {
             return "http://" + context.getRequestServerName() + ":" + context.getRequestServerPort() + context.getRequestContextPath();
+        }
+    }
+
+    public static void redirecionar(String url) {
+        try {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        externalContext.redirect("/trocaJogosMaven" + url);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
