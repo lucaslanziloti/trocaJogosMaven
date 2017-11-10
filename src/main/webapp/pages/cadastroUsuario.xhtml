@@ -31,31 +31,37 @@
                                                 showOn="button"
                                                 pattern="dd/MM/yyyy"
                                                 required="true" 
+                                                styleClass="calendario"
+                                                onfocus="mascaraCalendario();"
                                                 requiredMessage="Informe sua data de Nascimento"/>
                                 </h:panelGrid>
 
                                 <h:panelGrid>
                                     <h:outputText />
                                     <p:outputLabel for="cpf" value="CPF"/>
-                                    <p:inputText id="cpf" value="#{cadastroUsuarioMb.usuario.cpf}"
-                                                required="true" requiredMessage="Informe seu CPF" 
-                                                style="width: 278px;"/>
+                                    <p:inputText id="cpf" 
+                                                 value="#{cadastroUsuarioMb.usuario.cpf}"
+                                                 onkeypress="return aplicarMascara(this, '###.###.###-##', '/');"
+                                                 required="true" 
+                                                 requiredMessage="Informe seu CPF" 
+                                                 maxlength="14"
+                                                 style="width: 278px;"/>
                                 </h:panelGrid>
 
                                 <h:panelGrid>
                                     <h:outputText />
                                     <p:outputLabel for="rg" value="RG"/>
                                     <p:inputText id="rg" value="#{cadastroUsuarioMb.usuario.rg}"
-                                                required="true" requiredMessage="Informe seu RG" 
-                                                style="width: 278px;"/>
+                                                 required="true" requiredMessage="Informe seu RG" 
+                                                 style="width: 278px;"/>
                                 </h:panelGrid>
 
                                 <h:panelGrid>
                                     <h:outputText />
                                     <p:outputLabel for="email" value="E-mail"/>
                                     <p:inputText id="email" value="#{cadastroUsuarioMb.usuario.email}"
-                                                required="true" requiredMessage="Informe seu e-mail" 
-                                                style="width: 278px;"/>
+                                                 required="true" requiredMessage="Informe seu e-mail" 
+                                                 style="width: 278px;"/>
                                 </h:panelGrid>
 
                                 <h:panelGrid id="matchGrid" cellpadding="5">                   

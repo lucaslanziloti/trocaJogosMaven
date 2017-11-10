@@ -9,24 +9,25 @@
       >
 
     <h:head>
-        <link rel="icon" href="#{facesContext.externalContext.request.contextPath}/resources/logo.png" sizes="16x16"/>
+        <link rel="icon" href="#{facesContext.externalContext.request.contextPath}/resources/favicon-1.png" sizes="16x16"/>
         <h:outputStylesheet name="trocaJogos.css" library="css"/>
+        <h:outputScript name="script.js" library="js" />
     </h:head>
 
-    <h:body style="background-image: url('#{facesContext.externalContext.request.contextPath}/resources/Jumping_Game_Background_4269x2133.jpg'); background-size: cover; min-width: 800px;">
+    <h:body style="background-image: url('#{facesContext.externalContext.request.contextPath}/resources/backgroud-3.png'); background-size: cover; min-width: 800px;">
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
             <img src="#{facesContext.externalContext.request.contextPath}/resources/loader.gif" width="100"/>
         </p:dialog>
-        
+
         <div id="body">
             <p:growl id="msg" showDetail="true" showSummary="false" escape="false" life="10000" />
             <ui:insert name="body"></ui:insert>
         </div>
         <div id="page">
 
-            <div id="header" style="margin-left: 17%; margin-right: 17%; margin-top: 15px; margin-bottom: 15px;">
+            <div id="header" style="margin-left: 17%; margin-right: 19%; margin-top: 15px; margin-bottom: 15px;">
                 <ui:insert name="header" >
                     <ui:include src="commonHeader.xhtml" />
                 </ui:insert>
@@ -38,7 +39,7 @@
                 </ui:insert>
             </div>
 
-            <div id="footer" style="margin-top: 25px;">
+            <div id="footer" style="margin-left: 8%; margin-right: 8%; margin-top: 25px;">
                 <ui:insert name="footer" >
                     <ui:include src="commonFooter.xhtml" />
                 </ui:insert>

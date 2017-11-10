@@ -2,17 +2,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
         <ui:composition>
 
-            <div style="width: 400px;">
-                <img src="#{facesContext.externalContext.request.contextPath}/resources/logo.png" width="350"/>
-            </div>
+            <h:panelGrid style="width: 100%;" columns="2">
+                <h:panelGrid style="width: 49%;">
+                    <img src="#{facesContext.externalContext.request.contextPath}/resources/prancheta-1.png" width="350"/>
+                </h:panelGrid>
 
-            <div >
-            </div>
+                <h:panelGrid id="panelGridImg" style="float: right;">
+                    sadsadsdasda
+                </h:panelGrid>
+            </h:panelGrid>
+
+            
         </ui:composition>
     </body>
 </html>

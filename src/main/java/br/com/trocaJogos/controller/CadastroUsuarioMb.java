@@ -2,15 +2,14 @@ package br.com.trocaJogos.controller;
 
 import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Usuario;
+import br.com.trocaJogos.util.ViewUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -37,14 +36,21 @@ public class CadastroUsuarioMb {
     }
 
     public void salvar() throws IOException {
-        if (anexo != null && anexo.toPath()!= null) {
-            usuario.setImg(Base64.getEncoder().encodeToString(Files.readAllBytes(anexo.toPath())));
-        }
+        try {
+            if (anexo != null && anexo.toPath() != null) {
+                usuario.setImg(Base64.getEncoder().encodeToString(Files.readAllBytes(anexo.toPath())));
+            }
 
-        if (usuario.getId() == null) {
-            usuarioDao.salvar(usuario);
-        } else {
-            usuarioDao.alterar(usuario);
+            if (usuario.getId() == null) {
+                usuarioDao.salvar(usuario);
+            } else {
+                usuarioDao.alterar(usuario);
+            }
+            
+            ViewUtil.adicionarMensagemDeSucesso("Salvo com Sucesso!");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ViewUtil.adicionarMensagemDeSucesso("Ocorreu um erro");
         }
     }
 

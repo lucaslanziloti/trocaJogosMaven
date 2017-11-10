@@ -46,7 +46,7 @@ public class Usuario implements Serializable {
     @Column(name = "usr_senha", nullable = false)
     private String senha;
     
-    @Column(name = "jgo_avatar", columnDefinition = "LONGTEXT", nullable = true)
+    @Column(name = "usr_avatar", columnDefinition = "LONGTEXT", nullable = true)
     private String img;
 
     public Integer getId() {

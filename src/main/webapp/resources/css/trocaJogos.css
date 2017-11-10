@@ -1,7 +1,18 @@
 #imgJogo {
-  display: block;
-  max-width:268px;
-  max-height:268px;
-  width: auto;
-  height: auto;
+    display: block;
+    max-width:268px;
+    max-height:268px;
+    width: auto;
+    height: auto;
+}
+
+#footer{
+    height: 80px; 
+    background-color: #FFDF00; 
+    text-align: center; 
+    border-radius: 3px;
+}
+
+#footer a{
+
 }
