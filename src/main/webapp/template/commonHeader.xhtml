@@ -27,6 +27,11 @@
                             Bem vindo #{loginMb.usuarioLogado.nome}! 
                             
                             <h:commandLink style="color: black; margin-left: 20px; text-decoration: underline !important;" value="SAIR" action="#{loginMb.sair()}"/>
+                            
+                            <br/>
+                            <h:panelGrid id="panelGridImg" style="float: right; margin-right: 15px;" rendered="#{loginMb.usuarioLogado.possuiFoto}">
+                                <img id="imgPerfil" alt="star" src="data:image/#{loginMb.usuarioLogado.extensao};base64,#{loginMb.usuarioLogado.img}" />
+                            </h:panelGrid>
                         </h:form>
                     </div>
                 </h:panelGrid>

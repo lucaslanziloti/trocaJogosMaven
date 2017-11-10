@@ -56,6 +56,7 @@ public class JogoMb {
         }
 
         jogo.setImg(Base64.getEncoder().encodeToString(Files.readAllBytes(anexo.toPath())));
+        jogo.setExtensao(FilenameUtils.getExtension(anexo.getName()));
         if (jogo.getId() == null) {
             jogoDao.salvar(jogo);
         } else {

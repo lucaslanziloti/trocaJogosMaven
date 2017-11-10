@@ -11,6 +11,16 @@
     height: auto;
 }
 
+#imgPerfil {
+    display: block;
+    max-width:170px;
+    max-height:170px;
+    width: auto;
+    height: auto;
+    border: 2px solid #212121;
+    border-radius: 4px;
+}
+
 #footer{
     height: 80px; 
     background-color: #212121; 

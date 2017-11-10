@@ -37,6 +37,9 @@ public class Jogo implements Serializable {
     
     @Column(name = "jgo_img", columnDefinition = "LONGTEXT", nullable = true)
     private String img;
+    
+    @Column(name = "jgo_extensao", nullable = true)
+    private String extensao;
 
     public Integer getId() {
         return id;
@@ -76,6 +79,14 @@ public class Jogo implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getExtensao() {
+        return extensao;
+    }
+
+    public void setExtensao(String extensao) {
+        this.extensao = extensao;
     }
 
     @Override

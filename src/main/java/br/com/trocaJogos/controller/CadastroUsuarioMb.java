@@ -39,6 +39,7 @@ public class CadastroUsuarioMb {
         try {
             if (anexo != null && anexo.toPath() != null) {
                 usuario.setImg(Base64.getEncoder().encodeToString(Files.readAllBytes(anexo.toPath())));
+                usuario.setExtensao(FilenameUtils.getExtension(anexo.getName()));
             }
 
             if (usuario.getId() == null) {

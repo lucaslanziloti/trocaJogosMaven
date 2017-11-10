@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 /**
  * @author lucas lanziloti
@@ -47,6 +48,12 @@ public class Usuario implements Serializable {
 
     @Column(name = "usr_avatar", columnDefinition = "LONGTEXT", nullable = true)
     private String img;
+    
+    @Column(name = "usr_extensao", nullable = true)
+    private String extensao;
+    
+    @Transient
+    private Boolean possuiFoto;
 
     public Integer getId() {
         return id;
@@ -112,7 +119,15 @@ public class Usuario implements Serializable {
         this.img = img;
     }
 
-    public Boolean possuiFoto() {
+    public String getExtensao() {
+        return extensao;
+    }
+
+    public void setExtensao(String extensao) {
+        this.extensao = extensao;
+    }
+
+    public Boolean getPossuiFoto() {
         if (this.img != null && !this.img.isEmpty()) {
             return Boolean.TRUE;
         }
