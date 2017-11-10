@@ -14,7 +14,7 @@
                 </h:panelGrid>
 
                 <h:panelGrid style="float: right; margin-right: 10%;" rendered="#{loginMb.usuarioLogado.id == null}">
-                    <div id="login">
+                    <div id="login" style="background-color: #FFDF00;">
                         <a href="/trocaJogosMaven/pages/login.faces">Identifique-se</a>
 
                         <img src="#{facesContext.externalContext.request.contextPath}/resources/icons/log-in.png" width="24" style="margin-left: 8px;"/>
@@ -22,18 +22,18 @@
                 </h:panelGrid>
 
                 <h:panelGrid style="float: right; margin-right: 10%;" rendered="#{loginMb.usuarioLogado.id != null}" styleClass="bemVindo">
-                    <div id="login">
-                        <h:form>
+                    <h:form>
+                        <div id="login" style="background-color: #FFDF00; padding: 5px;">
                             Bem vindo #{loginMb.usuarioLogado.nome}! 
-                            
+
                             <h:commandLink style="color: black; margin-left: 20px; text-decoration: underline !important;" value="SAIR" action="#{loginMb.sair()}"/>
-                            
+
                             <br/>
                             <h:panelGrid id="panelGridImg" style="float: right; margin-right: 15px;" rendered="#{loginMb.usuarioLogado.possuiFoto}">
                                 <img id="imgPerfil" alt="star" src="data:image/#{loginMb.usuarioLogado.extensao};base64,#{loginMb.usuarioLogado.img}" />
                             </h:panelGrid>
-                        </h:form>
-                    </div>
+                        </div>
+                    </h:form>
                 </h:panelGrid>
             </h:panelGrid>
 

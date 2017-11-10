@@ -16,17 +16,16 @@
                         <h:panelGrid style="width: 100%;" columns="2">
                             <h:panelGrid style="width: 49%;">
                                 <h:panelGrid>
-                                    <h:outputText  />
-                                    <p:outputLabel for="nome" value="Nome"/>
+                                    <p:outputLabel for="nome" value="Nome:"/>
                                     <p:inputText id="nome" value="#{cadastroUsuarioMb.usuario.nome}" 
                                                  disabled="#{not empty cadastroUsuarioMb.usuario.id}"
                                                  required="true" requiredMessage="Informe seu nome" 
+                                                 maxlength="150"
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
 
                                 <h:panelGrid>
-                                    <h:outputText />
-                                    <p:outputLabel for="dataNasc" value="Data de Nascimento"/>
+                                    <p:outputLabel for="dataNasc" value="Data de Nascimento:"/>
                                     <p:calendar id="dataNasc" 
                                                 value="#{cadastroUsuarioMb.usuario.dataNascimento}" 
                                                 showOn="button"
@@ -39,8 +38,7 @@
                                 </h:panelGrid>
 
                                 <h:panelGrid>
-                                    <h:outputText />
-                                    <p:outputLabel for="cpf" value="CPF"/>
+                                    <p:outputLabel for="cpf" value="CPF:"/>
                                     <p:inputText id="cpf" 
                                                  value="#{cadastroUsuarioMb.usuario.cpf}"
                                                  onkeypress="return aplicarMascara(this, '###.###.###-##', '/');"
@@ -52,19 +50,19 @@
                                 </h:panelGrid>
 
                                 <h:panelGrid>
-                                    <h:outputText />
-                                    <p:outputLabel for="rg" value="RG"/>
+                                    <p:outputLabel for="rg" value="RG:"/>
                                     <p:inputText id="rg" value="#{cadastroUsuarioMb.usuario.rg}"
                                                  required="true" requiredMessage="Informe seu RG" 
                                                  disabled="#{not empty cadastroUsuarioMb.usuario.id}"
+                                                 maxlength="15"
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
 
                                 <h:panelGrid>
-                                    <h:outputText />
-                                    <p:outputLabel for="email" value="E-mail"/>
+                                    <p:outputLabel for="email" value="E-mail:"/>
                                     <p:inputText id="email" value="#{cadastroUsuarioMb.usuario.email}"
                                                  required="true" requiredMessage="Informe seu e-mail" 
+                                                 maxlength="60"
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
 
@@ -78,12 +76,14 @@
                                                 goodLabel="Boa"
                                                 weakLabel="fraca"
                                                 promptLabel="Insira um senha"
+                                                maxlength="8"
                                                 strongLabel="Forte"/>
 
                                     <h:outputLabel for="pwd2" value="Confirme a Senha:" />
                                     <p:password id="pwd2" 
                                                 value="#{cadastroUsuarioMb.usuario.senha}" 
                                                 label="Senha 2" 
+                                                maxlength="8"
                                                 required="true" />
                                 </h:panelGrid>
 
@@ -104,6 +104,75 @@
                                 <img id="imgJogo" alt="star" src="data:image/#{cadastroUsuarioMb.extensao};base64,#{cadastroUsuarioMb.base64}" />
                             </h:panelGrid>
                         </h:panelGrid>
+
+                        <p:fieldset legend="Endereço">
+                            <h:panelGrid id="panelGridLogradouro" columns="2">
+                                <h:panelGrid>
+                                    <p:outputLabel for="cep" value="CEP:"/>
+                                    <h:panelGrid columns="2">
+                                        <p:inputMask id="cep" value="#{cadastroUsuarioMb.usuario.endereco.logradouro.cep}" 
+                                                     required="true" 
+                                                     requiredMessage="Informe o CEP" 
+                                                     style="width: 278px;" 
+                                                     mask="99999-999" 
+                                                     maxlength="10"/>
+
+                                        <p:commandButton actionListener="#{cadastroUsuarioMb.buscaLogradouro(cadastroUsuarioMb.usuario.endereco.logradouro.cep)}" 
+                                                         process=":form:cep @this" 
+                                                         update="panelGridLogradouro :msg"
+                                                         icon="ui-icon-search"
+                                                         iconPos="right"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <p:outputLabel for="rua" value="Rua:"/>
+                                    <p:inputText id="rua" value="#{cadastroUsuarioMb.usuario.endereco.logradouro.descricao}"
+                                                 style="width: 278px;" 
+                                                 required="true" 
+                                                 requiredMessage="Informe o CEP" 
+                                                 disabled="true"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <p:outputLabel for="numero" value="Número:"/>
+                                    <p:inputText id="numero" value="#{cadastroUsuarioMb.usuario.endereco.numero}"
+                                                 required="true" 
+                                                 requiredMessage="Informe o número" 
+                                                 style="width: 278px;" 
+                                                 maxlength="5"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <p:outputLabel for="ponto" value="Ponto de Referência:"/>
+                                    <p:inputText id="ponto" value="#{cadastroUsuarioMb.usuario.endereco.pontoReferencia}"
+                                                 style="width: 278px;"
+                                                 maxlength="250" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid>
+                                <h:panelGrid>
+                                    <p:outputLabel for="cidade" value="Cidade:"/>
+                                    <p:autoComplete id="cidade" 
+                                                    styleClass="autoCompleteCidade"
+                                                    value="#{cadastroUsuarioMb.usuario.endereco.cidade}" 
+                                                    completeMethod="#{cadastroUsuarioMb.buscaCidade}"
+                                                    converter="cidadeConverter" 
+                                                    var="cidade"
+                                                    style="width: 278px;"
+                                                    itemValue="#{cidade}" 
+                                                    itemLabel="#{cidade.display}"
+                                                    minQueryLength="3" 
+                                                    placeholder="Informe ao mínimo 3 caracteres"
+                                                    queryDelay="2000"
+                                                    maxResults="8"
+                                                    required="true"
+                                                    requiredMessage="Informe a cidade"
+                                                    forceSelection="true"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                        </p:fieldset>
 
                         <h:panelGrid style="width: 100%; margin-top: 20px;">
                             <h:panelGrid style="float: right;" columns="2">

@@ -79,3 +79,7 @@ a{
     padding-left: 70px;
     padding-right: 70px;
 }
+
+.autoCompleteCidade input{
+    width: 278px;
+}

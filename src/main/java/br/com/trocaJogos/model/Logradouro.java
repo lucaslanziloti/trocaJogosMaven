@@ -24,6 +24,9 @@ public class Logradouro implements Serializable {
     
     @Column(name = "lgr_descricao", nullable = false)
     private String descricao;
+    
+    @Column(name = "lgr_cep", nullable = false)
+    private String cep;
 
     public Integer getId() {
         return id;
@@ -39,6 +42,14 @@ public class Logradouro implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     @Override

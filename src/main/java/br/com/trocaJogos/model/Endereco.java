@@ -29,16 +29,16 @@ public class Endereco implements Serializable {
     @Column(name = "end_numero", nullable = false)
     private Integer numero;
 
-    @Column(name = "end_ponto_referencia", nullable = false)
+    @Column(name = "end_ponto_referencia", nullable = true)
     private String pontoReferencia;
 
     @ManyToOne
-    @JoinColumn(name = "lgr_id", referencedColumnName = "lgr_id")
-    private Logradouro logradouro;
+    @JoinColumn(name = "lgr_id", referencedColumnName = "lgr_id", nullable = false)
+    private Logradouro logradouro = new Logradouro();
 
     @ManyToOne
-    @JoinColumn(name = "cid_id", referencedColumnName = "cid_id")
-    private Cidade cidade;
+    @JoinColumn(name = "cid_id", referencedColumnName = "cid_id", nullable = false)
+    private Cidade cidade = new Cidade();
 
     public Integer getId() {
         return id;

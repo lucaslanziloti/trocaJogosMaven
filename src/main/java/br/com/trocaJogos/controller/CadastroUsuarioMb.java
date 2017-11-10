@@ -1,12 +1,17 @@
 package br.com.trocaJogos.controller;
 
+import br.com.trocaJogos.dao.CidadeDao;
+import br.com.trocaJogos.dao.LogradouroDao;
 import br.com.trocaJogos.dao.UsuarioDao;
+import br.com.trocaJogos.model.Cidade;
+import br.com.trocaJogos.model.Logradouro;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.ViewUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,6 +28,8 @@ import org.primefaces.model.UploadedFile;
 public class CadastroUsuarioMb {
 
     private UsuarioDao usuarioDao = new UsuarioDao();
+    private LogradouroDao logradourdDao = new LogradouroDao();
+    private CidadeDao cidadeDao = new CidadeDao();
 
     private Usuario usuario = new Usuario();
 
@@ -33,10 +40,27 @@ public class CadastroUsuarioMb {
 
     @PostConstruct
     private void init() {
+        Object fromSession = ViewUtil.getFromSession("usuarioLogado");
+
+        if (fromSession != null) {
+            usuario = (Usuario) fromSession;
+        }
     }
 
     public void salvar() throws IOException {
         try {
+            if (usuario.getEndereco().getCidade() == null
+                    || usuario.getEndereco().getCidade().getId() == null) {
+                ViewUtil.adicionarMensagemDeAlerta("Informe a cidade!");
+                return;
+            }
+
+            if (usuario.getEndereco().getLogradouro() == null
+                    || usuario.getEndereco().getLogradouro().getId() == null) {
+                ViewUtil.adicionarMensagemDeAlerta("Informe o CEP");
+                return;
+            }
+
             if (anexo != null && anexo.toPath() != null) {
                 usuario.setImg(Base64.getEncoder().encodeToString(Files.readAllBytes(anexo.toPath())));
                 usuario.setExtensao(FilenameUtils.getExtension(anexo.getName()));
@@ -47,11 +71,29 @@ public class CadastroUsuarioMb {
             } else {
                 usuarioDao.alterar(usuario);
             }
-            
+
             ViewUtil.adicionarMensagemDeSucesso("Salvo com Sucesso!");
+            ViewUtil.redirecionar("/index.faces");
         } catch (Exception ex) {
             ex.printStackTrace();
             ViewUtil.adicionarMensagemDeSucesso("Ocorreu um erro");
+        }
+    }
+
+    public List<Cidade> buscaCidade(String query) {
+        return cidadeDao.buscarPorNome(query);
+    }
+
+    public void buscaLogradouro(String query) {
+        query = query.replace("-", "");
+
+        Logradouro logradouro = logradourdDao.buscarPorCEP(query);
+
+        if (logradouro != null && logradouro.getId() != null) {
+            usuario.getEndereco().setLogradouro(logradouro);
+        } else {
+            ViewUtil.adicionarMensagemDeAlerta("CEP não encontrado");
+            usuario.getEndereco().setLogradouro(new Logradouro());
         }
     }
 

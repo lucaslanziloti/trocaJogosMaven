@@ -24,6 +24,9 @@ public class Cidade implements Serializable {
     
     @Column(name = "cid_descricao", nullable = false)
     private String descricao;
+    
+    @Column(name = "cid_uf", nullable = true)
+    private String uf;
 
     public Integer getId() {
         return id;
@@ -39,6 +42,22 @@ public class Cidade implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+    
+    public String getDisplay(){
+        if(this.id != null){
+            return this.descricao + " - " + this.uf;
+        }
+        
+        return "";
     }
 
     @Override

@@ -19,7 +19,9 @@
                                     <h:outputText  />
                                     <p:outputLabel for="descricao" value="Nome do Jogo"/>
                                     <p:inputText id="descricao" value="#{jogoMb.jogo.descricao}" 
-                                                 required="true" requiredMessage="Informe o nome do jogo" 
+                                                 required="true" 
+                                                 requiredMessage="Informe o nome do jogo" 
+                                                 maxlength="150"
                                                  style="width: 278px;"/>
                                 </h:panelGrid>
 

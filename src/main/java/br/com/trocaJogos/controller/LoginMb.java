@@ -30,11 +30,14 @@ public class LoginMb {
     }
 
     public void logar() {
-        Usuario usuario = usuarioDao.logar(email, senha);
+        Usuario usuario = usuarioDao.logar(email.trim(), senha.trim());
 
         if (usuario == null || usuario.getId() == null) {
             ViewUtil.adicionarMensagemDeErro("Email e senha incorretos!");
-            sair();
+
+            usuarioLogado = new Usuario();
+            email = "";
+            senha = "";
         } else {
             usuarioLogado = usuario;
 
@@ -42,6 +45,8 @@ public class LoginMb {
             senha = "";
 
             ViewUtil.adicionarMensagemDeSucesso("Logado com Sucesso!");
+            
+            ViewUtil.setInSession("usuarioLogado", usuarioLogado);
 
             ViewUtil.redirecionar("/index.faces");
         }
@@ -52,6 +57,8 @@ public class LoginMb {
         email = "";
         senha = "";
 
+        ViewUtil.removeFromSession("usuarioLogado");
+        
         ViewUtil.redirecionar("/index.faces");
     }
 

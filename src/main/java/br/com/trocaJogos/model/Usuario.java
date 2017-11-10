@@ -3,10 +3,13 @@ package br.com.trocaJogos.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -51,9 +54,13 @@ public class Usuario implements Serializable {
     
     @Column(name = "usr_extensao", nullable = true)
     private String extensao;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "end_id", referencedColumnName = "end_id")
+    private Endereco endereco = new Endereco();
     
     @Transient
-    private Boolean possuiFoto;
+    private Boolean possuiFoto = Boolean.FALSE;
 
     public Integer getId() {
         return id;
@@ -127,13 +134,22 @@ public class Usuario implements Serializable {
         this.extensao = extensao;
     }
 
-    public Boolean getPossuiFoto() {
-        if (this.img != null && !this.img.isEmpty()) {
-            return Boolean.TRUE;
-        }
-        return Boolean.FALSE;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Boolean getPossuiFoto() {
+        if (this.img != null && !this.img.isEmpty()) {
+            possuiFoto = Boolean.TRUE;
+        }else{
+            possuiFoto = Boolean.FALSE;
+        }
+        return possuiFoto;
+    }
     @Override
     public int hashCode() {
         int hash = 7;

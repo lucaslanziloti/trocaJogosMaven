@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author lucas
@@ -40,6 +41,9 @@ public class Jogo implements Serializable {
     
     @Column(name = "jgo_extensao", nullable = true)
     private String extensao;
+    
+    @Transient
+    private Boolean possuiFoto = Boolean.FALSE;
 
     public Integer getId() {
         return id;
@@ -87,6 +91,15 @@ public class Jogo implements Serializable {
 
     public void setExtensao(String extensao) {
         this.extensao = extensao;
+    }
+
+    public Boolean getPossuiFoto() {
+        if (this.img != null && !this.img.isEmpty()) {
+            possuiFoto = Boolean.TRUE;
+        }else{
+            possuiFoto = Boolean.FALSE;
+        }
+        return possuiFoto;
     }
 
     @Override
