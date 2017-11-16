@@ -13,9 +13,57 @@
             <ui:define name="content">
                 <h:form  enctype="multipart/form-data" id="form">
                     <p:panel header="Catálogo">
-                        <h:panelGrid style="width: 100%;">
+                        <h:panelGrid columns="5">
+                            <h:panelGrid>
+                                <h:outputText  />
+                                <p:outputLabel for="descricao" value="Nome do Jogo"/>
+                                <p:inputText id="descricao" value="#{catalogoMb.descricao}" 
+                                             maxlength="150"
+                                             style="width: 278px;"/>
+                            </h:panelGrid>
 
+                            <h:panelGrid>
+                                <p:outputLabel for="genero" value="Gênero:" />
+                                <p:selectOneMenu id="genero" value="#{catalogoMb.generoSelecionado}" 
+                                                 converter="generoConverter" style="width: 180px;">
+                                    <f:selectItem itemLabel="Selecione" itemValue="" />
+                                    <f:selectItems value="#{catalogoMb.generos}" var="genero" itemValue="#{genero}" itemLabel="#{genero.descricao}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <h:panelGrid>
+                                <p:outputLabel for="plataforma" value="Plataforma:" />
+
+                                <h:panelGrid columns="2">
+                                    <p:selectOneMenu id="plataforma" value="#{catalogoMb.plataformaSelecionado}" 
+                                                     converter="plataformaConverter" style="width: 180px;">
+                                        <f:selectItem itemLabel="Selecione" itemValue="" />
+                                        <f:selectItems value="#{catalogoMb.plataformas}" var="plataforma" itemValue="#{plataforma}" itemLabel="#{plataforma.descricao}"/>
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton value="Buscar" 
+                                                     actionListener="#{catalogoMb.buscaJogos()}" 
+                                                     process="@form" 
+                                                     update="@form :msg"
+                                                     icon="ui-icon-search"
+                                                     iconPos="right"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
                         </h:panelGrid>
+
+                        <div class="catalogoContainer">
+                            <ui:repeat value="#{catalogoMb.jogos}" var="jogo" rendered="#{not empty catalogoMb.jogos}" varStatus="status">
+                                <div class="#{status.odd ? 'direita' : 'esquerda'}">
+                                    <img src="data:image/#{jogo.extensao};base64,#{jogo.img}" class="imgCatalogo"/>
+
+                                    <div>
+                                        <p:outputLabel value="#{jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                        <p:outputLabel value="Gênero : #{jogo.genero.descricao}"/><br/>
+                                        <p:outputLabel value="Plataforma : #{jogo.plataforma.descricao}"/><br/>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
                     </p:panel>
                 </h:form>
             </ui:define>

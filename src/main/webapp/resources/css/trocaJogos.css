@@ -83,3 +83,28 @@ a{
 .autoCompleteCidade input{
     width: 278px;
 }
+
+.imgCatalogo {
+    display: block;
+    max-width: 160px;
+    max-height: 160px;
+    width: auto;
+    height: auto;
+    float: left;
+}
+
+.catalogoContainer{
+    width: 100%;
+    margin: auto;
+}
+
+.esquerda{
+    width: 48%;
+    height: 170px;
+    float: left;
+}
+
+.direita{
+    margin-left: 50%;
+    height: 170px;
+}

@@ -6,6 +6,7 @@ import br.com.trocaJogos.dao.PlataformaDao;
 import br.com.trocaJogos.model.Genero;
 import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.Plataforma;
+import br.com.trocaJogos.util.ViewUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -59,8 +60,12 @@ public class JogoMb {
         jogo.setExtensao(FilenameUtils.getExtension(anexo.getName()));
         if (jogo.getId() == null) {
             jogoDao.salvar(jogo);
+
+            ViewUtil.adicionarMensagemDeSucesso("Salvo com Sucesso!");
         } else {
             jogoDao.alterar(jogo);
+
+            ViewUtil.adicionarMensagemDeSucesso("Alterado com Sucesso!");
         }
     }
 
