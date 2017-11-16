@@ -57,7 +57,13 @@ public class LoginMb {
         ViewUtil.redirecionar("/index.faces");
     }
 
-    public boolean getEstaLogado() {
+    public Boolean getRoot() {
+        return usuarioLogado != null
+                && usuarioLogado.getId() != null
+                && usuarioLogado.getRoot();
+    }
+
+    public Boolean getEstaLogado() {
         return usuarioLogado != null && usuarioLogado.getId() != null;
     }
 

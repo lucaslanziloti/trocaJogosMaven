@@ -67,6 +67,9 @@ public class Usuario implements Serializable {
     
     @OneToMany(mappedBy = "usuario")
     private List<JogoDesejado> jogosDesejados = new ArrayList<>();
+    
+    @Column(name = "usr_root", nullable = false)
+    private Boolean root = Boolean.FALSE;
             
     @Transient
     private Boolean possuiFoto = Boolean.FALSE;
@@ -165,6 +168,14 @@ public class Usuario implements Serializable {
 
     public void setJogosDesejados(List<JogoDesejado> jogosDesejados) {
         this.jogosDesejados = jogosDesejados;
+    }
+
+    public Boolean getRoot() {
+        return root;
+    }
+
+    public void setRoot(Boolean root) {
+        this.root = root;
     }
     
     public Boolean getPossuiFoto() {
