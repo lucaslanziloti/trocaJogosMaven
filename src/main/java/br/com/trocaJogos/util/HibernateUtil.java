@@ -10,11 +10,17 @@ import org.hibernate.cfg.AnnotationConfiguration;
  */
 public class HibernateUtil {
 
-    public Session getSession() {
-        AnnotationConfiguration configuration = new AnnotationConfiguration();
-        configuration.configure();
+    private static Session sessionFactory;
 
-        SessionFactory factory = configuration.buildSessionFactory();
-        return factory.openSession();
+    public Session getSession() {
+        if (sessionFactory == null) {
+            AnnotationConfiguration configuration = new AnnotationConfiguration();
+            configuration.configure();
+
+            SessionFactory factory = configuration.buildSessionFactory();
+            return sessionFactory = factory.openSession();
+        } else {
+            return sessionFactory;
+        }
     }
 }

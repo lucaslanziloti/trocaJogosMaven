@@ -76,14 +76,14 @@
                                                 goodLabel="Boa"
                                                 weakLabel="fraca"
                                                 promptLabel="Insira um senha"
-                                                maxlength="8"
+                                                maxlength="10"
                                                 strongLabel="Forte"/>
 
                                     <h:outputLabel for="pwd2" value="Confirme a Senha:" />
                                     <p:password id="pwd2" 
                                                 value="#{cadastroUsuarioMb.usuario.senha}" 
                                                 label="Senha 2" 
-                                                maxlength="8"
+                                                maxlength="10"
                                                 required="true" />
                                 </h:panelGrid>
 
@@ -101,7 +101,7 @@
                             </h:panelGrid>
 
                             <h:panelGrid id="panelGridImg" style="float: right; margin-right: 15px;">
-                                <img id="imgJogo" alt="star" src="data:image/#{cadastroUsuarioMb.extensao};base64,#{cadastroUsuarioMb.base64}" />
+                                <img id="imgJogo" src="data:image/#{cadastroUsuarioMb.extensao};base64,#{cadastroUsuarioMb.base64}" />
                             </h:panelGrid>
                         </h:panelGrid>
 

@@ -3,14 +3,9 @@ package br.com.trocaJogos.controller;
 import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.ViewUtil;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 /**
  * @author lucas

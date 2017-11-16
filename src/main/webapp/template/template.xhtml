@@ -14,7 +14,9 @@
         <h:outputScript name="script.js" library="js" />
     </h:head>
 
-    <h:body style="background-image: url('#{facesContext.externalContext.request.contextPath}/resources/backgroud-3.png'); background-size: cover; min-width: 800px;">
+    <h:body style="background-image: url('#{facesContext.externalContext.request.contextPath}/resources/backgroud-3.png'); 
+            background-size: cover; background-attachment: fixed; background-position: center; background-repeat: no-repeat;
+            min-width: 800px;">
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">

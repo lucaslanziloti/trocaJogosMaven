@@ -1,7 +1,9 @@
 package br.com.trocaJogos.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -59,6 +62,12 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     private Endereco endereco = new Endereco();
     
+    @OneToMany(mappedBy = "usuario")
+    private List<JogoDoUsuario> jogosDoUsuario = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "usuario")
+    private List<JogoDesejado> jogosDesejados = new ArrayList<>();
+            
     @Transient
     private Boolean possuiFoto = Boolean.FALSE;
 
@@ -142,6 +151,22 @@ public class Usuario implements Serializable {
         this.endereco = endereco;
     }
 
+    public List<JogoDoUsuario> getJogosDoUsuario() {
+        return jogosDoUsuario;
+    }
+
+    public void setJogosDoUsuario(List<JogoDoUsuario> jogosDoUsuario) {
+        this.jogosDoUsuario = jogosDoUsuario;
+    }
+
+    public List<JogoDesejado> getJogosDesejados() {
+        return jogosDesejados;
+    }
+
+    public void setJogosDesejados(List<JogoDesejado> jogosDesejados) {
+        this.jogosDesejados = jogosDesejados;
+    }
+    
     public Boolean getPossuiFoto() {
         if (this.img != null && !this.img.isEmpty()) {
             possuiFoto = Boolean.TRUE;
@@ -150,6 +175,7 @@ public class Usuario implements Serializable {
         }
         return possuiFoto;
     }
+    
     @Override
     public int hashCode() {
         int hash = 7;

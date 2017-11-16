@@ -19,5 +19,7 @@
         <mapping class="br.com.trocaJogos.model.Genero" />
         <mapping class="br.com.trocaJogos.model.Plataforma" />
         <mapping class="br.com.trocaJogos.model.Jogo" />
+        <mapping class="br.com.trocaJogos.model.JogoDoUsuario" />
+        <mapping class="br.com.trocaJogos.model.JogoDesejado" />
     </session-factory>
 </hibernate-configuration>

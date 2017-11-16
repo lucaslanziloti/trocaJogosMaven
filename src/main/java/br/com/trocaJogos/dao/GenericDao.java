@@ -17,7 +17,6 @@ public class GenericDao<T> {
     public GenericDao(Class<T> type) {
         this.type = type;
     }
-    
 
     public void salvar(T entity) {
         Session session = hibernateUtil.getSession();
@@ -25,8 +24,6 @@ public class GenericDao<T> {
         Transaction tx = session.beginTransaction();
         session.save(entity);
         tx.commit();
-
-        session.close();
     }
 
     public void alterar(T entity) {
@@ -35,8 +32,6 @@ public class GenericDao<T> {
         Transaction tx = session.beginTransaction();
         session.update(entity);
         tx.commit();
-
-        session.close();
     }
 
     public void delete(T entity) {
@@ -45,19 +40,17 @@ public class GenericDao<T> {
         Transaction tx = session.beginTransaction();
         session.delete(entity);
         tx.commit();
-
-        session.close();
     }
-    
-    public T carregar(Integer id){
+
+    public T carregar(Integer id) {
         Session session = hibernateUtil.getSession();
-        
+
         return (T) session.get(this.type, id);
     }
-    
-    public List<T> listaTodos(){
+
+    public List<T> listaTodos() {
         Session session = hibernateUtil.getSession();
-        
+
         return session.createQuery("select t from " + this.type.getSimpleName() + " t ").list();
     }
 }

@@ -1,7 +1,6 @@
 package br.com.trocaJogos.dao;
 
 import br.com.trocaJogos.model.Logradouro;
-import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
