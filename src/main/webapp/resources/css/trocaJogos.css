@@ -108,3 +108,22 @@ a{
     margin-left: 50%;
     height: 170px;
 }
+
+.esquerda, .direita{
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.esquerda label, .direita label{
+    margin-left: 5px;
+}
+
+.esquerda:hover, .direita:hover{
+    background: #2c3e50;
+    transition: 0.7s;
+}
+
+.esquerda:hover label, .direita:hover label{
+    color: white;
+}
+
