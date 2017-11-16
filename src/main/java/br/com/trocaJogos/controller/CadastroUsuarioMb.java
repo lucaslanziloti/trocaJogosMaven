@@ -44,6 +44,8 @@ public class CadastroUsuarioMb {
 
         if (fromSession != null) {
             usuario = (Usuario) fromSession;
+            
+            usuario = usuarioDao.carregar(usuario.getId());
         }
     }
 

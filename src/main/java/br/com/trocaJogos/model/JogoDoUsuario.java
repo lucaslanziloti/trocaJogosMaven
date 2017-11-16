@@ -33,6 +33,14 @@ public class JogoDoUsuario implements Serializable {
     @JoinColumn(name = "jgo_id", referencedColumnName = "jgo_id")
     private Jogo jogo = new Jogo();
 
+    public JogoDoUsuario() {
+    }
+
+    public JogoDoUsuario(Jogo jogo, Usuario usuario) {
+        this.jogo = jogo;
+        this.usuario = usuario;
+    }
+
     public Integer getId() {
         return id;
     }

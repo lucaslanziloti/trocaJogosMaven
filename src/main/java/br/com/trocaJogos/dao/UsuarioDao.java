@@ -3,6 +3,7 @@ package br.com.trocaJogos.dao;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 /**
@@ -15,6 +16,21 @@ public class UsuarioDao extends GenericDao<Usuario> {
     public UsuarioDao() {
         super(Usuario.class);
     }
+    
+    @Override
+    public Usuario carregar(Integer id){
+        Usuario usuario = super.carregar(id);
+        
+        if(!Hibernate.isInitialized(usuario.getJogosDesejados())){
+            Hibernate.initialize(usuario.getJogosDesejados());
+        }
+        
+        if(!Hibernate.isInitialized(usuario.getJogosDoUsuario())){
+            Hibernate.initialize(usuario.getJogosDoUsuario());
+        }
+        
+        return usuario;
+    } 
 
     public Usuario logar(String email, String senha) {
         Session session = hibernateUtil.getSession();

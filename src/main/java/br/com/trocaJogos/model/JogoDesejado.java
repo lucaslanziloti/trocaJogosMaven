@@ -1,4 +1,3 @@
-
 package br.com.trocaJogos.model;
 
 import java.io.Serializable;
@@ -19,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "jde_jogo_desejado")
 public class JogoDesejado implements Serializable {
-    
+
     @Id
     @GeneratedValue
     @Column(name = "jde_id", nullable = false)
@@ -32,6 +31,14 @@ public class JogoDesejado implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "jgo_id", referencedColumnName = "jgo_id")
     private Jogo jogo = new Jogo();
+
+    public JogoDesejado() {
+    }
+
+    public JogoDesejado(Jogo jogo, Usuario usuario) {
+        this.jogo = jogo;
+        this.usuario = usuario;
+    }
 
     public Integer getId() {
         return id;

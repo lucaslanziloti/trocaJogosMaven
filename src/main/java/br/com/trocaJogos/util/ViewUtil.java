@@ -1,5 +1,6 @@
 package br.com.trocaJogos.util;
 
+import br.com.trocaJogos.model.Usuario;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -78,10 +79,14 @@ public final class ViewUtil {
 
     public static void redirecionar(String url) {
         try {
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        externalContext.redirect("/trocaJogosMaven" + url);
+            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+            externalContext.redirect("/trocaJogosMaven" + url);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void atualizarUsuarioNaSessao(Usuario usuario) {
+        ViewUtil.setInSession("usuarioLogado", usuario);
     }
 }

@@ -2,10 +2,14 @@ package br.com.trocaJogos.controller;
 
 import br.com.trocaJogos.dao.GeneroDao;
 import br.com.trocaJogos.dao.JogoDao;
+import br.com.trocaJogos.dao.JogoDesejadoDao;
 import br.com.trocaJogos.dao.PlataformaDao;
+import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Genero;
 import br.com.trocaJogos.model.Jogo;
+import br.com.trocaJogos.model.JogoDesejado;
 import br.com.trocaJogos.model.Plataforma;
+import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.ViewUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,7 @@ public class CatalogoMb {
     private JogoDao jogoDao = new JogoDao();
     private GeneroDao generoDao = new GeneroDao();
     private PlataformaDao plataformaDao = new PlataformaDao();
+    private JogoDesejadoDao jogoDesejadoDao = new JogoDesejadoDao();
 
     private List<Genero> generos = new ArrayList<>();
     private List<Plataforma> plataformas = new ArrayList<>();
@@ -45,6 +50,18 @@ public class CatalogoMb {
         if(jogos.isEmpty()){
             ViewUtil.adicionarMensagemDeAlerta("Nenhum jogo encontrado");
         }
+    }
+    
+    public void adicionaListaDesejos(Jogo jogo){
+        Usuario usuarioLogado = (Usuario) ViewUtil.getFromSession("usuarioLogado");
+        
+        JogoDesejado jogoDesejado = new JogoDesejado(jogo, usuarioLogado);
+        
+        usuarioLogado.getJogosDesejados().add(jogoDesejado);
+        
+        jogoDesejadoDao.salvar(jogoDesejado);
+        
+        ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista de desejos !");
     }
 
     public List<Genero> getGeneros() {

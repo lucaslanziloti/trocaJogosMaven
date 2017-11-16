@@ -40,7 +40,7 @@ public class LoginMb {
             senha = "";
 
             ViewUtil.adicionarMensagemDeSucesso("Logado com Sucesso!");
-            
+
             ViewUtil.setInSession("usuarioLogado", usuarioLogado);
 
             ViewUtil.redirecionar("/index.faces");
@@ -53,8 +53,12 @@ public class LoginMb {
         senha = "";
 
         ViewUtil.removeFromSession("usuarioLogado");
-        
+
         ViewUtil.redirecionar("/index.faces");
+    }
+
+    public boolean getEstaLogado() {
+        return usuarioLogado != null && usuarioLogado.getId() != null;
     }
 
     public Usuario getUsuarioLogado() {
