@@ -3,11 +3,12 @@ package br.com.trocaJogos.controller;
 import br.com.trocaJogos.dao.GeneroDao;
 import br.com.trocaJogos.dao.JogoDao;
 import br.com.trocaJogos.dao.JogoDesejadoDao;
+import br.com.trocaJogos.dao.JogoDoUsuarioDao;
 import br.com.trocaJogos.dao.PlataformaDao;
-import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Genero;
 import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.JogoDesejado;
+import br.com.trocaJogos.model.JogoDoUsuario;
 import br.com.trocaJogos.model.Plataforma;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.ViewUtil;
@@ -28,6 +29,7 @@ public class CatalogoMb {
     private GeneroDao generoDao = new GeneroDao();
     private PlataformaDao plataformaDao = new PlataformaDao();
     private JogoDesejadoDao jogoDesejadoDao = new JogoDesejadoDao();
+    private JogoDoUsuarioDao jogoDoUsuarioDao = new JogoDoUsuarioDao();
 
     private List<Genero> generos = new ArrayList<>();
     private List<Plataforma> plataformas = new ArrayList<>();
@@ -62,6 +64,18 @@ public class CatalogoMb {
         jogoDesejadoDao.salvar(jogoDesejado);
         
         ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista de desejos !");
+    }
+    
+    public void adicionaListaJaPossuo(Jogo jogo){
+        Usuario usuarioLogado = (Usuario) ViewUtil.getFromSession("usuarioLogado");
+        
+        JogoDoUsuario jogoDoUsuario = new JogoDoUsuario(jogo, usuarioLogado);
+        
+        usuarioLogado.getJogosDoUsuario().add(jogoDoUsuario);
+        
+        jogoDoUsuarioDao.salvar(jogoDoUsuario);
+        
+        ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista de jogos !");
     }
 
     public List<Genero> getGeneros() {
