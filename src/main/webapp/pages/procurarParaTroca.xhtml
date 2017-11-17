@@ -13,52 +13,52 @@
             <ui:define name="content">
                 <h:form  id="form">
                     <p:panel header="Procurar jogos para troca">
-
-                        <h:form>
-                            <h:panelGrid styleClass="catalogoContainer">
-                                <h:panelGrid style="width: 100%; margin-bottom: 20px;">
-                                    <h:outputLabel value="Minha Lista de Desejos" styleClass="tituloJogoCadastro"/>
-                                </h:panelGrid>
-
-                                <ui:repeat value="#{procuraParaTrocaMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
-                                    <div class="#{status.odd ? 'direita' : 'esquerda'}">
-                                        <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
-
-                                        <div style="height: 45%;">
-                                            <p:outputLabel value="#{jogoDesejado.jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
-                                            <p:outputLabel value="Gênero : #{jogoDesejado.jogo.genero.descricao}"/><br/>
-                                            <p:outputLabel value="Plataforma : #{jogoDesejado.jogo.plataforma.descricao}"/><br/>
-                                        </div>
-
-                                        <div>
-                                            <p:commandButton value="Buscar"
-                                                             action="#{procuraParaTrocaMb.buscar(jogoDesejado.jogo)}"
-                                                             process="@this"
-                                                             icon="ui-icon-search"
-                                                             update="@form :msg"/>
-                                        </div>
-                                    </div>
-                                </ui:repeat>
+                        <h:panelGrid styleClass="catalogoContainer">
+                            <h:panelGrid style="width: 100%; margin-bottom: 20px;">
+                                <h:outputLabel value="Minha Lista de Desejos" styleClass="tituloJogoCadastro"/>
                             </h:panelGrid>
 
-                            <ui:repeat value="#{procuraParaTrocaMb.usuariosQuePossuemJogo}" var="usr" varStatus="status">
-                                <div class="usuarioPossuiJogo">
-                                    <img src="data:image/#{usr.extensao};base64,#{usr.img}"/>
+                            <ui:repeat value="#{procuraParaTrocaMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
+                                <div class="#{status.odd ? 'direita' : 'esquerda'}">
+                                    <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
 
                                     <div style="height: 45%;">
-                                        <p:outputLabel value="#{usr.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
-                                        <p:outputLabel value="Cidade : #{usr.endereco.cidade.display}"/><br/>
+                                        <p:outputLabel value="#{jogoDesejado.jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                        <p:outputLabel value="Gênero : #{jogoDesejado.jogo.genero.descricao}"/><br/>
+                                        <p:outputLabel value="Plataforma : #{jogoDesejado.jogo.plataforma.descricao}"/><br/>
                                     </div>
 
-                                    <div>
-                                        <p:commandButton value="Solicitar Troca"
-                                                         process="@this"
-                                                         icon="ui-icon-search"
-                                                         update="@form :msg"/>
-                                    </div>
+                                    <p:commandButton value="Buscar"
+                                                     action="#{procuraParaTrocaMb.buscar(jogoDesejado.jogo)}"
+                                                     process="@this"
+                                                     icon="ui-icon-search"
+                                                     update="@form :msg"/>
                                 </div>
                             </ui:repeat>
-                        </h:form>
+                        </h:panelGrid>
+
+                        <p:dataGrid id="usuariosBusca" 
+                                    var="usr" 
+                                    value="#{procuraParaTrocaMb.usuariosQuePossuemJogo}" 
+                                    rendered="#{not empty procuraParaTrocaMb.usuariosQuePossuemJogo}"
+                                    columns="2" 
+                                    layout="grid"
+                                    rows="12" 
+                                    paginator="true"
+                                    paginatorPosition="bottom"
+                                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                            <f:facet name="header">
+                                Resultado da busca
+                            </f:facet>
+
+                            <div>
+                                <img id="imgBusca" src="data:image/#{usr.extensao};base64,#{usr.img}" />
+
+                                <p:outputLabel value="#{usr.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                <p:outputLabel value="Cidade : #{usr.endereco.cidade.display}"/>
+                            </div>
+                        </p:dataGrid>
                     </p:panel>
                 </h:form>
             </ui:define>

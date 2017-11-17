@@ -146,3 +146,17 @@ a{
     margin-bottom: 15px;
 }
 
+#imgBusca{
+    display: block;
+    max-width:120px;
+    max-height:120px;
+    width: auto;
+    height: auto;
+    border: 1px solid #212121;
+    border-radius: 2px;
+    float: left;
+    margin-right: 8px;
+}
+
+
+
