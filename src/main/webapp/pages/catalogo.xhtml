@@ -51,36 +51,38 @@
                             </h:panelGrid>
                         </h:panelGrid>
 
-                        <div class="catalogoContainer">
-                            <ui:repeat value="#{catalogoMb.jogos}" var="jogo" rendered="#{not empty catalogoMb.jogos}" varStatus="status">
-                                <div class="#{status.odd ? 'direita' : 'esquerda'}">
-                                    <img src="data:image/#{jogo.extensao};base64,#{jogo.img}" class="imgCatalogo"/>
+                        <h:panelGrid styleClass="catalogoContainer">
+                                <ui:repeat value="#{catalogoMb.jogos}" var="jogo" rendered="#{not empty catalogoMb.jogos}" varStatus="status">
+                                    <div class="#{status.odd ? 'direita' : 'esquerda'}">
+                                        <img src="data:image/#{jogo.extensao};base64,#{jogo.img}" class="imgCatalogo"/>
 
-                                    <div style="height: 45%;">
-                                        <p:outputLabel value="#{jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
-                                        <p:outputLabel value="Gênero : #{jogo.genero.descricao}"/><br/>
-                                        <p:outputLabel value="Plataforma : #{jogo.plataforma.descricao}"/><br/>
+                                        <div style="height: 45%;">
+                                            <p:outputLabel value="#{jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                            <p:outputLabel value="Gênero : #{jogo.genero.descricao}"/><br/>
+                                            <p:outputLabel value="Plataforma : #{jogo.plataforma.descricao}"/><br/>
+                                        </div>
+
+                                        <div>
+                                            <p:commandButton value="Adicionar a lista de desejos"
+                                                             rendered="#{loginMb.estaLogado}"
+                                                             action="#{catalogoMb.adicionaListaDesejos(jogo)}"
+                                                             process="@this"
+                                                             icon="ui-icon-heart"
+                                                             update=":msg"/>
+                                            
+                                            <br/>
+
+                                            <p:commandButton value="Já possuo"
+                                                             rendered="#{loginMb.estaLogado}"
+                                                             action="#{catalogoMb.adicionaListaJaPossuo(jogo)}"
+                                                             process="@this"
+                                                             icon="ui-icon-check"
+                                                             style="margin-top: 10px;"
+                                                             update=":msg"/>
+                                        </div>
                                     </div>
-
-                                    <div>
-                                        <p:commandButton value="Adicionar a lista de desejos"
-                                                         rendered="#{loginMb.estaLogado}"
-                                                         action="#{catalogoMb.adicionaListaDesejos(jogo)}"
-                                                         process="@this"
-                                                         icon="ui-icon-heart"
-                                                         update=":msg"/>
-
-                                        <p:commandButton value="Já possuo"
-                                                         rendered="#{loginMb.estaLogado}"
-                                                         action="#{catalogoMb.adicionaListaJaPossuo(jogo)}"
-                                                         process="@this"
-                                                         icon="ui-icon-check"
-                                                         style="margin-top: 10px;"
-                                                         update=":msg"/>
-                                    </div>
-                                </div>
-                            </ui:repeat>
-                        </div>
+                                </ui:repeat>
+                        </h:panelGrid>
                     </p:panel>
                 </h:form>
             </ui:define>

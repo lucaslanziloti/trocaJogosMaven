@@ -195,12 +195,52 @@
                         </h:form>
                     </p:tab>
                     
-                    <p:tab title="Lista de Desejos">
-                        
+                    <p:tab id="jogoDesejado" title="Lista de Desejos" rendered="#{loginMb.estaLogado}">
+                        <h:panelGrid styleClass="catalogoContainer">
+                            <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
+                                    <div class="#{status.odd ? 'direita' : 'esquerda'}">
+                                        <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
+
+                                        <div style="height: 45%;">
+                                            <p:outputLabel value="#{jogoDesejado.jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                            <p:outputLabel value="Gênero : #{jogoDesejado.jogo.genero.descricao}"/><br/>
+                                            <p:outputLabel value="Plataforma : #{jogoDesejado.jogo.plataforma.descricao}"/><br/>
+                                        </div>
+
+                                        <div>
+                                            <p:commandButton value="Remover da lista"
+                                                             action="#{cadastroUsuarioMb.removeJogoDesejado(jogoDesejado)}"
+                                                             process="@this"
+                                                             icon="ui-icon-closethick"
+                                                             update=":tab:jogoDesejado :msg"/>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                        </h:panelGrid>
                     </p:tab>
                     
-                    <p:tab title="Meus Jogos">
-                        
+                    <p:tab id="jogosDoUsuario" title="Meus Jogos" rendered="#{loginMb.estaLogado}">
+                        <h:panelGrid styleClass="catalogoContainer">
+                            <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDoUsuario}" var="jogosDoUsuario" varStatus="status">
+                                    <div class="#{status.odd ? 'direita' : 'esquerda'}">
+                                        <img src="data:image/#{jogosDoUsuario.jogo.extensao};base64,#{jogosDoUsuario.jogo.img}" class="imgCatalogo"/>
+
+                                        <div style="height: 45%;">
+                                            <p:outputLabel value="#{jogosDoUsuario.jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                            <p:outputLabel value="Gênero : #{jogosDoUsuario.jogo.genero.descricao}"/><br/>
+                                            <p:outputLabel value="Plataforma : #{jogosDoUsuario.jogo.plataforma.descricao}"/><br/>
+                                        </div>
+
+                                        <div>
+                                            <p:commandButton value="Remover da lista"
+                                                             action="#{cadastroUsuarioMb.removeJogoDoUsuario(jogosDoUsuario)}"
+                                                             process="@this"
+                                                             icon="ui-icon-closethick"
+                                                             update=":tab:jogosDoUsuario :msg"/>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                        </h:panelGrid>
                     </p:tab>
                 </p:tabView>
             </ui:define>

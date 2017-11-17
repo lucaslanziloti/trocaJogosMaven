@@ -12,6 +12,8 @@ import org.hibernate.Session;
 public class UsuarioDao extends GenericDao<Usuario> {
 
     private HibernateUtil hibernateUtil = new HibernateUtil();
+    private JogoDesejadoDao jogoDesejadoDao = new  JogoDesejadoDao();
+    private JogoDoUsuarioDao jogoDoUsuarioDao = new JogoDoUsuarioDao();
 
     public UsuarioDao() {
         super(Usuario.class);
@@ -21,13 +23,8 @@ public class UsuarioDao extends GenericDao<Usuario> {
     public Usuario carregar(Integer id){
         Usuario usuario = super.carregar(id);
         
-        if(!Hibernate.isInitialized(usuario.getJogosDesejados())){
-            Hibernate.initialize(usuario.getJogosDesejados());
-        }
-        
-        if(!Hibernate.isInitialized(usuario.getJogosDoUsuario())){
-            Hibernate.initialize(usuario.getJogosDoUsuario());
-        }
+        usuario.setJogosDesejados(jogoDesejadoDao.jogosDo(usuario));
+        usuario.setJogosDoUsuario(jogoDoUsuarioDao.jogosDo(usuario));
         
         return usuario;
     } 

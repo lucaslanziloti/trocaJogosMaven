@@ -1,9 +1,13 @@
 package br.com.trocaJogos.controller;
 
 import br.com.trocaJogos.dao.CidadeDao;
+import br.com.trocaJogos.dao.JogoDesejadoDao;
+import br.com.trocaJogos.dao.JogoDoUsuarioDao;
 import br.com.trocaJogos.dao.LogradouroDao;
 import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Cidade;
+import br.com.trocaJogos.model.JogoDesejado;
+import br.com.trocaJogos.model.JogoDoUsuario;
 import br.com.trocaJogos.model.Logradouro;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.ViewUtil;
@@ -30,6 +34,8 @@ public class CadastroUsuarioMb {
     private UsuarioDao usuarioDao = new UsuarioDao();
     private LogradouroDao logradourdDao = new LogradouroDao();
     private CidadeDao cidadeDao = new CidadeDao();
+    private JogoDesejadoDao jogoDesejadoDao = new JogoDesejadoDao();
+    private JogoDoUsuarioDao jogoDoUsuarioDao = new JogoDoUsuarioDao();
 
     private Usuario usuario = new Usuario();
 
@@ -116,6 +122,22 @@ public class CadastroUsuarioMb {
             return anexo.toPath().toString();
         }
         return "";
+    }
+    
+    public void removeJogoDesejado(JogoDesejado jogoDesejado){
+        jogoDesejadoDao.delete(jogoDesejado);
+        
+        usuario = usuarioDao.carregar(usuario.getId());
+        
+        ViewUtil.adicionarMensagemDeSucesso("Jogo removido da sua lista de desejos!");
+    }
+    
+    public void removeJogoDoUsuario(JogoDoUsuario jogoDoUsuario){
+        jogoDoUsuarioDao.delete(jogoDoUsuario);
+        
+        usuario = usuarioDao.carregar(usuario.getId());
+        
+        ViewUtil.adicionarMensagemDeSucesso("Jogo removido da sua lista!");
     }
 
     public void cancelar() {
