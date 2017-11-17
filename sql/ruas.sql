@@ -2712,7 +2712,7 @@ INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE ASSUN
 INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE BRASÍLIA', '12223640');
 INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE LA PAZ', '12223680');
 INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE LIMA', '12223590');
-INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE MONTEVIDÉO', '12223660');
+INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE MONTEVIDÉU', '12223660');
 INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE QUITO', '12223650');
 INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE SANTIAGO', '12223670');
 INSERT INTO lgr_logradouro (lgr_descricao, lgr_cep) VALUES ('RUA CIDADE DE WASHINGTON', '12223600');
