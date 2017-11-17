@@ -29,6 +29,25 @@
 
                             <img src="#{facesContext.externalContext.request.contextPath}/resources/icons/icon-wii.png" width="80" style="margin-left: 8px;"/>
                         </div>
+
+                        <h:form>
+                            <h:panelGrid style="width: 100%; margin-top: 80px;">
+                                <p:commandButton value="Logar" 
+                                                 action="/pages/login.faces?faces-redirect=true"
+                                                 immediate="true"
+                                                 styleClass="buttonIndex"
+                                                 icon="ui-icon-person"
+                                                 iconPos="right"/>
+
+                                <p:commandButton value="Cadastre-se" 
+                                                  style="margin-top: 25px;"
+                                                 action="/pages/cadastroUsuario.faces?faces-redirect=true"
+                                                 immediate="true"
+                                                 styleClass="buttonIndex"
+                                                 icon="ui-icon-person"
+                                                 iconPos="right"/>
+                            </h:panelGrid>
+                        </h:form>
                     </div>
                 </div>
             </ui:define>

@@ -213,6 +213,15 @@
                                                              process="@this"
                                                              icon="ui-icon-closethick"
                                                              update=":tab:jogoDesejado :msg"/>
+                                            
+                                            <br/>
+
+                                            <p:commandButton value="Já possuo"
+                                                             action="#{cadastroUsuarioMb.transfromaJogoDesejadoEmJogoDoUsuario(jogoDesejado)}"
+                                                             process="@this"
+                                                             icon="ui-icon-check"
+                                                             style="margin-top: 10px;"
+                                                             update=":msg"/>
                                         </div>
                                     </div>
                                 </ui:repeat>

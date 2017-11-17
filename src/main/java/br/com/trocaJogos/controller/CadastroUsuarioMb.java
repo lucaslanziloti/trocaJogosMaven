@@ -124,6 +124,17 @@ public class CadastroUsuarioMb {
         return "";
     }
     
+    public void transfromaJogoDesejadoEmJogoDoUsuario(JogoDesejado jogoDesejado){
+        JogoDoUsuario jogoDoUsuario = new JogoDoUsuario(jogoDesejado.getJogo(), usuario);
+        usuario.getJogosDoUsuario().add(jogoDoUsuario);
+        usuarioDao.alterar(usuario);
+        
+        jogoDesejadoDao.delete(jogoDesejado);
+        usuario = usuarioDao.carregar(usuario.getId());
+        
+        ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista!");
+    }
+    
     public void removeJogoDesejado(JogoDesejado jogoDesejado){
         jogoDesejadoDao.delete(jogoDesejado);
         
