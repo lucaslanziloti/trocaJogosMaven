@@ -68,6 +68,16 @@ public class CadastroUsuarioMb {
                 ViewUtil.adicionarMensagemDeAlerta("Informe o CEP");
                 return;
             }
+            
+            if(usuarioDao.verificaCpfExiste(usuario.getCpf())){
+                ViewUtil.adicionarMensagemDeAlerta("Este CPF já foi cadastrado!");
+                return;
+            }
+            
+            if(usuarioDao.verificaEmailExiste(usuario.getEmail())){
+                ViewUtil.adicionarMensagemDeAlerta("Este e-mail já foi cadastrado!");
+                return;
+            }
 
             if (anexo != null && anexo.toPath() != null) {
                 usuario.setImg(Base64.getEncoder().encodeToString(Files.readAllBytes(anexo.toPath())));

@@ -53,4 +53,24 @@ public class UsuarioDao extends GenericDao<Usuario> {
                 .list();
     }
 
+    public Boolean verificaCpfExiste(String cpf) {
+        Session session = hibernateUtil.getSession();
+
+        List<Usuario> resultado = session.createQuery("select u from Usuario u WHERE u.cpf = :cpf")
+                .setParameter("cpf", cpf)
+                .list();
+        
+        return resultado != null && !resultado.isEmpty();
+    }
+
+    public Boolean verificaEmailExiste(String email) {
+        Session session = hibernateUtil.getSession();
+
+        List<Usuario> resultado = session.createQuery("select u from Usuario u WHERE u.email = :email")
+                .setParameter("email", email)
+                .list();
+        
+        return resultado != null && !resultado.isEmpty();
+    }
+
 }

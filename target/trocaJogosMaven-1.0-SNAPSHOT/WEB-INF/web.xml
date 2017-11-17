@@ -29,6 +29,11 @@
         <location>/errorPage.xhtml</location>
     </error-page>
     
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/index.xhtml</location>
+    </error-page>
+    
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name> 
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
