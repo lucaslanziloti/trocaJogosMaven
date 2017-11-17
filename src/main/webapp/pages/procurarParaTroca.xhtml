@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cadastro de Jogos</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <h:form  id="form">
+                    <p:panel header="Procurar jogos para troca">
+
+                        <h:form>
+                            <h:panelGrid styleClass="catalogoContainer">
+                                <h:panelGrid style="width: 100%; margin-bottom: 20px;">
+                                    <h:outputLabel value="Minha Lista de Desejos" styleClass="tituloJogoCadastro"/>
+                                </h:panelGrid>
+
+                                <ui:repeat value="#{procuraParaTrocaMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
+                                    <div class="#{status.odd ? 'direita' : 'esquerda'}">
+                                        <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
+
+                                        <div style="height: 45%;">
+                                            <p:outputLabel value="#{jogoDesejado.jogo.descricao}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                            <p:outputLabel value="Gênero : #{jogoDesejado.jogo.genero.descricao}"/><br/>
+                                            <p:outputLabel value="Plataforma : #{jogoDesejado.jogo.plataforma.descricao}"/><br/>
+                                        </div>
+
+                                        <div>
+                                            <p:commandButton value="Buscar"
+                                                             action="#{procuraParaTrocaMb.buscar(jogoDesejado.jogo)}"
+                                                             process="@this"
+                                                             icon="ui-icon-search"
+                                                             update="@form :msg"/>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </h:panelGrid>
+
+                            <ui:repeat value="#{procuraParaTrocaMb.usuariosQuePossuemJogo}" var="usr" varStatus="status">
+                                <div class="usuarioPossuiJogo">
+                                    <img src="data:image/#{usr.extensao};base64,#{usr.img}"/>
+
+                                    <div style="height: 45%;">
+                                        <p:outputLabel value="#{usr.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                        <p:outputLabel value="Cidade : #{usr.endereco.cidade.display}"/><br/>
+                                    </div>
+
+                                    <div>
+                                        <p:commandButton value="Solicitar Troca"
+                                                         process="@this"
+                                                         icon="ui-icon-search"
+                                                         update="@form :msg"/>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </h:form>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

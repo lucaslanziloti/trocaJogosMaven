@@ -140,3 +140,9 @@ a{
     transition: 0.2s;
 }
 
+.tituloJogoCadastro{
+    font-family: "Queen of Clubs";
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+

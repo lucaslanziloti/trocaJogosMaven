@@ -198,6 +198,11 @@
                     <p:tab id="jogoDesejado" title="Lista de Desejos" rendered="#{loginMb.estaLogado}">
                         <h:panelGrid styleClass="catalogoContainer">
                             <h:form>
+
+                                <h:panelGrid style="width: 100%; margin-bottom: 20px;">
+                                    <h:outputLabel value="Minha Lista de Desejos" styleClass="tituloJogoCadastro"/>
+                                </h:panelGrid>
+
                                 <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
                                     <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                         <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
@@ -233,6 +238,11 @@
                     <p:tab id="jogosDoUsuario" title="Meus Jogos" rendered="#{loginMb.estaLogado}">
                         <h:panelGrid styleClass="catalogoContainer" id="panelGridDoUsuario">
                             <h:form>
+
+                                <h:panelGrid style="width: 100%; margin-bottom: 20px;">
+                                    <h:outputLabel value="Minha Lista de Jogos" styleClass="tituloJogoCadastro"/>
+                                </h:panelGrid>
+
                                 <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDoUsuario}" var="jogosDoUsuario" varStatus="status">
                                     <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                         <img src="data:image/#{jogosDoUsuario.jogo.extensao};base64,#{jogosDoUsuario.jogo.img}" class="imgCatalogo"/>

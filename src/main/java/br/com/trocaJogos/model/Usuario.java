@@ -73,6 +73,9 @@ public class Usuario implements Serializable {
             
     @Transient
     private Boolean possuiFoto = Boolean.FALSE;
+            
+    @Transient
+    private String distancia;
 
     public Integer getId() {
         return id;
@@ -176,6 +179,14 @@ public class Usuario implements Serializable {
 
     public void setRoot(Boolean root) {
         this.root = root;
+    }
+
+    public String getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(String distancia) {
+        this.distancia = distancia;
     }
     
     public Boolean getPossuiFoto() {

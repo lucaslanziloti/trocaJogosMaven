@@ -1,9 +1,9 @@
 package br.com.trocaJogos.dao;
 
+import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.HibernateUtil;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 /**
@@ -12,22 +12,22 @@ import org.hibernate.Session;
 public class UsuarioDao extends GenericDao<Usuario> {
 
     private HibernateUtil hibernateUtil = new HibernateUtil();
-    private JogoDesejadoDao jogoDesejadoDao = new  JogoDesejadoDao();
+    private JogoDesejadoDao jogoDesejadoDao = new JogoDesejadoDao();
     private JogoDoUsuarioDao jogoDoUsuarioDao = new JogoDoUsuarioDao();
 
     public UsuarioDao() {
         super(Usuario.class);
     }
-    
+
     @Override
-    public Usuario carregar(Integer id){
+    public Usuario carregar(Integer id) {
         Usuario usuario = super.carregar(id);
-        
+
         usuario.setJogosDesejados(jogoDesejadoDao.jogosDo(usuario));
         usuario.setJogosDoUsuario(jogoDoUsuarioDao.jogosDo(usuario));
-        
+
         return usuario;
-    } 
+    }
 
     public Usuario logar(String email, String senha) {
         Session session = hibernateUtil.getSession();
@@ -42,6 +42,15 @@ public class UsuarioDao extends GenericDao<Usuario> {
         } else {
             return new Usuario();
         }
+    }
+
+    public List<Usuario> buscarUsuarioQuePossui(Jogo jogo, Usuario usuario) {
+        Session session = hibernateUtil.getSession();
+
+        return session.createQuery("select j.usuario FROM JogoDoUsuario j WHERE j.jogo = :jogo AND j.usuario <> :usuario")
+                .setParameter("jogo", jogo)
+                .setParameter("usuario", usuario)
+                .list();
     }
 
 }
