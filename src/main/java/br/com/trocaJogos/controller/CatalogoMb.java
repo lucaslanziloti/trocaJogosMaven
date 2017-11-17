@@ -5,6 +5,7 @@ import br.com.trocaJogos.dao.JogoDao;
 import br.com.trocaJogos.dao.JogoDesejadoDao;
 import br.com.trocaJogos.dao.JogoDoUsuarioDao;
 import br.com.trocaJogos.dao.PlataformaDao;
+import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Genero;
 import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.JogoDesejado;
@@ -30,51 +31,68 @@ public class CatalogoMb {
     private PlataformaDao plataformaDao = new PlataformaDao();
     private JogoDesejadoDao jogoDesejadoDao = new JogoDesejadoDao();
     private JogoDoUsuarioDao jogoDoUsuarioDao = new JogoDoUsuarioDao();
+    private UsuarioDao usuarioDao = new UsuarioDao();
 
     private List<Genero> generos = new ArrayList<>();
     private List<Plataforma> plataformas = new ArrayList<>();
     private List<Jogo> jogos = new ArrayList<>();
-    
+
     private Jogo jogoSelecionado = new Jogo();
     private Genero generoSelecionado = new Genero();
     private Plataforma plataformaSelecionado = new Plataforma();
     private String descricao;
-    
+
     @PostConstruct
     private void init() {
         generos = generoDao.listaTodos();
         plataformas = plataformaDao.listaTodos();
     }
-    
-    public void buscaJogos(){
+
+    public void buscaJogos() {
         jogos = jogoDao.buscaPor(generoSelecionado, plataformaSelecionado, descricao);
-        
-        if(jogos.isEmpty()){
+
+        if (jogos.isEmpty()) {
             ViewUtil.adicionarMensagemDeAlerta("Nenhum jogo encontrado");
         }
     }
-    
-    public void adicionaListaDesejos(Jogo jogo){
+
+    public void adicionaListaDesejos(Jogo jogo) {
         Usuario usuarioLogado = (Usuario) ViewUtil.getFromSession("usuarioLogado");
-        
+
+        usuarioLogado = usuarioDao.carregar(usuarioLogado.getId());
+        for (JogoDesejado jd : usuarioLogado.getJogosDesejados()) {
+            if (jd.getJogo().equals(jogo)) {
+                ViewUtil.adicionarMensagemDeAlerta("Você já possui esse jogo em sua conta!");
+
+                return;
+            }
+        }
+
         JogoDesejado jogoDesejado = new JogoDesejado(jogo, usuarioLogado);
-        
         usuarioLogado.getJogosDesejados().add(jogoDesejado);
-        
         jogoDesejadoDao.salvar(jogoDesejado);
-        
+
         ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista de desejos !");
     }
-    
-    public void adicionaListaJaPossuo(Jogo jogo){
+
+    public void adicionaListaJaPossuo(Jogo jogo) {
         Usuario usuarioLogado = (Usuario) ViewUtil.getFromSession("usuarioLogado");
-        
+
+        usuarioLogado = usuarioDao.carregar(usuarioLogado.getId());
+        for (JogoDoUsuario jd : usuarioLogado.getJogosDoUsuario()) {
+            if (jd.getJogo().equals(jogo)) {
+                ViewUtil.adicionarMensagemDeAlerta("Você já possui esse jogo em sua conta!");
+
+                return;
+            }
+        }
+
         JogoDoUsuario jogoDoUsuario = new JogoDoUsuario(jogo, usuarioLogado);
-        
+
         usuarioLogado.getJogosDoUsuario().add(jogoDoUsuario);
-        
+
         jogoDoUsuarioDao.salvar(jogoDoUsuario);
-        
+
         ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista de jogos !");
     }
 

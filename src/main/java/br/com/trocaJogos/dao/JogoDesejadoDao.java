@@ -8,6 +8,7 @@ package br.com.trocaJogos.dao;
 import br.com.trocaJogos.model.JogoDesejado;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.HibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 
@@ -22,10 +23,14 @@ public class JogoDesejadoDao extends GenericDao<JogoDesejado> {
     public JogoDesejadoDao() {
         super(JogoDesejado.class);
     }
-    
-    public List<JogoDesejado> jogosDo(Usuario usuario){
-        Session session = hibernateUtil.getSession();
-        
-        return session.createQuery("SELECT j FROM JogoDesejado j WHERE j.usuario = :usuario").setParameter("usuario", usuario).list();
+
+    public List<JogoDesejado> jogosDo(Usuario usuario) {
+        try {
+            Session session = hibernateUtil.getSession();
+
+            return session.createQuery("SELECT j FROM JogoDesejado j WHERE j.usuario = :usuario").setParameter("usuario", usuario).list();
+        } catch (Exception ex) {
+            return new ArrayList<>();
+        }
     }
 }

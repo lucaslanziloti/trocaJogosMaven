@@ -194,10 +194,11 @@
                             </h:panelGrid>
                         </h:form>
                     </p:tab>
-                    
+
                     <p:tab id="jogoDesejado" title="Lista de Desejos" rendered="#{loginMb.estaLogado}">
                         <h:panelGrid styleClass="catalogoContainer">
-                            <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
+                            <h:form>
+                                <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
                                     <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                         <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
 
@@ -212,8 +213,8 @@
                                                              action="#{cadastroUsuarioMb.removeJogoDesejado(jogoDesejado)}"
                                                              process="@this"
                                                              icon="ui-icon-closethick"
-                                                             update=":tab:jogoDesejado :msg"/>
-                                            
+                                                             update="@form :msg"/>
+
                                             <br/>
 
                                             <p:commandButton value="Já possuo"
@@ -221,16 +222,18 @@
                                                              process="@this"
                                                              icon="ui-icon-check"
                                                              style="margin-top: 10px;"
-                                                             update=":msg"/>
+                                                             update="@form :msg"/>
                                         </div>
                                     </div>
                                 </ui:repeat>
+                            </h:form>
                         </h:panelGrid>
                     </p:tab>
-                    
+
                     <p:tab id="jogosDoUsuario" title="Meus Jogos" rendered="#{loginMb.estaLogado}">
-                        <h:panelGrid styleClass="catalogoContainer">
-                            <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDoUsuario}" var="jogosDoUsuario" varStatus="status">
+                        <h:panelGrid styleClass="catalogoContainer" id="panelGridDoUsuario">
+                            <h:form>
+                                <ui:repeat value="#{cadastroUsuarioMb.usuario.jogosDoUsuario}" var="jogosDoUsuario" varStatus="status">
                                     <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                         <img src="data:image/#{jogosDoUsuario.jogo.extensao};base64,#{jogosDoUsuario.jogo.img}" class="imgCatalogo"/>
 
@@ -245,10 +248,11 @@
                                                              action="#{cadastroUsuarioMb.removeJogoDoUsuario(jogosDoUsuario)}"
                                                              process="@this"
                                                              icon="ui-icon-closethick"
-                                                             update=":tab:jogosDoUsuario :msg"/>
+                                                             update="@form :msg"/>
                                         </div>
                                     </div>
                                 </ui:repeat>
+                            </h:form>
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>

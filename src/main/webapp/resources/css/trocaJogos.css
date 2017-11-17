@@ -121,7 +121,7 @@ a{
 
 .esquerda:hover, .direita:hover{
     background: #2c3e50;
-    transition: 0.5s;
+    transition: 0.4s;
 }
 
 .esquerda:hover label, .direita:hover label{
