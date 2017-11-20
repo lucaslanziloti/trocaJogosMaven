@@ -29,8 +29,13 @@
                             <h:commandLink style="color: black; margin-left: 20px; text-decoration: underline !important;" value="SAIR" action="#{loginMb.sair()}"/>
 
                             <br/>
+                            
                             <h:panelGrid id="panelGridImg" style="float: right; margin-right: 15px; margin-top: 10px;" rendered="#{loginMb.usuarioLogado.possuiFoto}">
                                 <img id="imgPerfil" alt="star" src="data:image/#{loginMb.usuarioLogado.extensao};base64,#{loginMb.usuarioLogado.img}" />
+                            </h:panelGrid>
+                            
+                            <h:panelGrid id="panelGridImgDefault" style="float: right; margin-right: 15px; margin-top: 10px;" rendered="#{not loginMb.usuarioLogado.possuiFoto}">
+                                <img id="imgPerfil" alt="star" src="#{facesContext.externalContext.request.contextPath}/resources/perfil.jpg" />
                             </h:panelGrid>
                         </div>
                     </h:form>
