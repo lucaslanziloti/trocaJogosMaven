@@ -70,7 +70,13 @@ public class Usuario implements Serializable {
     
     @Column(name = "usr_root", nullable = false)
     private Boolean root = Boolean.FALSE;
-            
+    
+    @OneToMany(mappedBy = "usuarioOrigem")
+    private List<PropostaTroca> propostasFeitas = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "usuarioDestino")
+    private List<PropostaTroca> propostasRecebidas = new ArrayList<>();
+    
     @Transient
     private Boolean possuiFoto = Boolean.FALSE;
             
@@ -187,6 +193,22 @@ public class Usuario implements Serializable {
 
     public void setDistancia(String distancia) {
         this.distancia = distancia;
+    }
+
+    public List<PropostaTroca> getPropostasFeitas() {
+        return propostasFeitas;
+    }
+
+    public void setPropostasFeitas(List<PropostaTroca> propostasFeitas) {
+        this.propostasFeitas = propostasFeitas;
+    }
+
+    public List<PropostaTroca> getPropostasRecebidas() {
+        return propostasRecebidas;
+    }
+
+    public void setPropostasRecebidas(List<PropostaTroca> propostasRecebidas) {
+        this.propostasRecebidas = propostasRecebidas;
     }
     
     public Boolean getPossuiFoto() {

@@ -21,5 +21,6 @@
         <mapping class="br.com.trocaJogos.model.Jogo" />
         <mapping class="br.com.trocaJogos.model.JogoDoUsuario" />
         <mapping class="br.com.trocaJogos.model.JogoDesejado" />
+        <mapping class="br.com.trocaJogos.model.PropostaTroca" />
     </session-factory>
 </hibernate-configuration>

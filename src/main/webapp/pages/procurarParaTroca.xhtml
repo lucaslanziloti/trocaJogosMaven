@@ -75,6 +75,12 @@
                                 <p:outputLabel value="Cidade: #{usr.endereco.cidade.display}"/><br/>
                                 <p:outputLabel value="Distância entre vocês: #{usr.distancia}"/>
                             </div>
+
+                            <p:commandButton value="Solicitar Troca"
+                                             action="#{procuraParaTrocaMb.solicitaTroca(usr)}"
+                                             process="@this"
+                                             icon="ui-icon-search"
+                                             update="@form :msg"/>
                         </p:dataGrid>
                     </p:panel>
                 </h:form>
