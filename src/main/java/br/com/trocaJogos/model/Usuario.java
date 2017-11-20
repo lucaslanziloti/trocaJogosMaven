@@ -54,32 +54,34 @@ public class Usuario implements Serializable {
 
     @Column(name = "usr_avatar", columnDefinition = "LONGTEXT", nullable = true)
     private String img;
-    
+
     @Column(name = "usr_extensao", nullable = true)
     private String extensao;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "end_id", referencedColumnName = "end_id")
     private Endereco endereco = new Endereco();
-    
+
     @OneToMany(mappedBy = "usuario")
     private List<JogoDoUsuario> jogosDoUsuario = new ArrayList<>();
-    
+
     @OneToMany(mappedBy = "usuario")
     private List<JogoDesejado> jogosDesejados = new ArrayList<>();
-    
+
     @Column(name = "usr_root", nullable = false)
     private Boolean root = Boolean.FALSE;
-    
-    @OneToMany(mappedBy = "usuarioOrigem")
+
+//    @OneToMany(mappedBy = "usuarioOrigem")
+    @Transient
     private List<PropostaTroca> propostasFeitas = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "usuarioDestino")
+
+//    @OneToMany(mappedBy = "usuarioDestino")
+    @Transient
     private List<PropostaTroca> propostasRecebidas = new ArrayList<>();
-    
+
     @Transient
     private Boolean possuiFoto = Boolean.FALSE;
-            
+
     @Transient
     private String distancia;
 
@@ -210,16 +212,16 @@ public class Usuario implements Serializable {
     public void setPropostasRecebidas(List<PropostaTroca> propostasRecebidas) {
         this.propostasRecebidas = propostasRecebidas;
     }
-    
+
     public Boolean getPossuiFoto() {
         if (this.img != null && !this.img.isEmpty()) {
             possuiFoto = Boolean.TRUE;
-        }else{
+        } else {
             possuiFoto = Boolean.FALSE;
         }
         return possuiFoto;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

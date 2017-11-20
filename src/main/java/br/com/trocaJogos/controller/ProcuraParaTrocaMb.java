@@ -67,56 +67,20 @@ public class ProcuraParaTrocaMb {
             jogoSelecionado = jogo;
 
             try {
-                calculaDistancia();
+                usuarioDao.calculaDistancia(usuariosQuePossuemJogo, usuario);
             } catch (Exception ex) {
                 usuario.setDistancia(" - ");
             }
             RequestContext.getCurrentInstance().execute("$('html, body').animate({scrollTop: $('.dataGridBusca').offset().top}, 600);");
         }
     }
-    
-    public void limpaCidade(){
+
+    public void limpaCidade() {
         cidade = new Cidade();
     }
 
     public List<Cidade> buscaCidade(String query) {
         return cidadeDao.buscarPorNome(query);
-    }
-
-    private void calculaDistancia() throws IOException {
-        String latLongOrigem = procuraLatLong(usuario.getEndereco());
-        try {
-            for (Usuario usr : usuariosQuePossuemJogo) {
-                String latLongDestino = procuraLatLong(usr.getEndereco());
-
-                DistanceMatrixResponse calcularDistanciaXML = GeoCodeUtil.calcularDistanciaXML(latLongOrigem, latLongDestino);
-                Object row = (Object) calcularDistanciaXML.getRow().get(0);
-                Element element = (Element) row;
-                usr.setDistancia(element.getDistance().getText());
-            }
-        } catch (Exception ex) {
-            usuario.setDistancia(" - ");
-        }
-    }
-
-    public String procuraLatLong(Endereco endereco) throws IOException {
-        final Geocoder geocoder = new Geocoder();
-        String latLongOrigem = "";
-
-        StringBuilder enderecoBuilder = new StringBuilder();
-        enderecoBuilder.append(endereco.getLogradouro().getDescricao()).append(", ");
-        enderecoBuilder.append(endereco.getNumero()).append(", ");
-        enderecoBuilder.append(endereco.getCidade().getDisplay());
-
-        GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(enderecoBuilder.toString()).setLanguage("pt").getGeocoderRequest();
-        GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-
-        if (geocoderResponse != null && !geocoderResponse.getResults().isEmpty()) {
-            latLongOrigem = geocoderResponse.getResults().get(0).getGeometry().getLocation().getLat().toString();
-            latLongOrigem += "," + geocoderResponse.getResults().get(0).getGeometry().getLocation().getLng().toString();
-        }
-
-        return latLongOrigem;
     }
 
     public void solicitaTroca(Usuario usuarioParaTroca) {
@@ -125,10 +89,10 @@ public class ProcuraParaTrocaMb {
         propostaTroca.setUsuarioOrigem(usuario);
         propostaTroca.setUsuarioDestino(usuarioParaTroca);
         propostaTroca.setJogo(jogoSelecionado);
-        
-        if(!propostaTrocaDao.validaTroca(propostaTroca)){
+
+        if (!propostaTrocaDao.validaTroca(propostaTroca)) {
             ViewUtil.adicionarMensagemDeAlerta("Esta troca já foi solicitada!");
-            
+
             return;
         }
 

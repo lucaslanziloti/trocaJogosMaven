@@ -4,16 +4,19 @@ import br.com.trocaJogos.dao.CidadeDao;
 import br.com.trocaJogos.dao.JogoDesejadoDao;
 import br.com.trocaJogos.dao.JogoDoUsuarioDao;
 import br.com.trocaJogos.dao.LogradouroDao;
+import br.com.trocaJogos.dao.PropostaTrocaDao;
 import br.com.trocaJogos.dao.UsuarioDao;
 import br.com.trocaJogos.model.Cidade;
 import br.com.trocaJogos.model.JogoDesejado;
 import br.com.trocaJogos.model.JogoDoUsuario;
 import br.com.trocaJogos.model.Logradouro;
+import br.com.trocaJogos.model.PropostaTroca;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.ViewUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -36,6 +39,7 @@ public class CadastroUsuarioMb {
     private CidadeDao cidadeDao = new CidadeDao();
     private JogoDesejadoDao jogoDesejadoDao = new JogoDesejadoDao();
     private JogoDoUsuarioDao jogoDoUsuarioDao = new JogoDoUsuarioDao();
+    private PropostaTrocaDao propostaTrocaDao = new PropostaTrocaDao();
 
     private Usuario usuario = new Usuario();
 
@@ -50,8 +54,32 @@ public class CadastroUsuarioMb {
 
         if (fromSession != null) {
             usuario = (Usuario) fromSession;
-            
+
             usuario = usuarioDao.carregar(usuario.getId());
+
+            calculaDistancias();
+        }
+    }
+
+    private void calculaDistancias() {
+        try {
+            propostaTrocaDao.carregarListaPor(usuario);
+            
+            List<Usuario> usuariosPropostasRecebidas = new ArrayList<>();
+            List<Usuario> usuariosPropostasFeitas = new ArrayList<>();
+
+            for (PropostaTroca pt : usuario.getPropostasRecebidas()) {
+                usuariosPropostasRecebidas.add(pt.getUsuarioOrigem());
+            }
+
+            for (PropostaTroca pt : usuario.getPropostasFeitas()) {
+                usuariosPropostasFeitas.add(pt.getUsuarioDestino());
+            }
+
+            usuarioDao.calculaDistancia(usuariosPropostasRecebidas, usuario);
+            usuarioDao.calculaDistancia(usuariosPropostasFeitas, usuario);
+        } catch (Exception ex) {
+
         }
     }
 
@@ -68,13 +96,13 @@ public class CadastroUsuarioMb {
                 ViewUtil.adicionarMensagemDeAlerta("Informe o CEP");
                 return;
             }
-            
-            if(usuarioDao.verificaCpfExiste(usuario.getCpf())){
+
+            if (usuarioDao.verificaCpfExiste(usuario.getCpf())) {
                 ViewUtil.adicionarMensagemDeAlerta("Este CPF já foi cadastrado!");
                 return;
             }
-            
-            if(usuarioDao.verificaEmailExiste(usuario.getEmail())){
+
+            if (usuarioDao.verificaEmailExiste(usuario.getEmail())) {
                 ViewUtil.adicionarMensagemDeAlerta("Este e-mail já foi cadastrado!");
                 return;
             }
@@ -133,31 +161,31 @@ public class CadastroUsuarioMb {
         }
         return "";
     }
-    
-    public void transfromaJogoDesejadoEmJogoDoUsuario(JogoDesejado jogoDesejado){
+
+    public void transfromaJogoDesejadoEmJogoDoUsuario(JogoDesejado jogoDesejado) {
         JogoDoUsuario jogoDoUsuario = new JogoDoUsuario(jogoDesejado.getJogo(), usuario);
         usuario.getJogosDoUsuario().add(jogoDoUsuario);
         usuarioDao.alterar(usuario);
-        
+
         jogoDesejadoDao.delete(jogoDesejado);
         usuario = usuarioDao.carregar(usuario.getId());
-        
+
         ViewUtil.adicionarMensagemDeSucesso("Jogo adicionado a sua lista!");
     }
-    
-    public void removeJogoDesejado(JogoDesejado jogoDesejado){
+
+    public void removeJogoDesejado(JogoDesejado jogoDesejado) {
         jogoDesejadoDao.delete(jogoDesejado);
-        
+
         usuario = usuarioDao.carregar(usuario.getId());
-        
+
         ViewUtil.adicionarMensagemDeSucesso("Jogo removido da sua lista de desejos!");
     }
-    
-    public void removeJogoDoUsuario(JogoDoUsuario jogoDoUsuario){
+
+    public void removeJogoDoUsuario(JogoDoUsuario jogoDoUsuario) {
         jogoDoUsuarioDao.delete(jogoDoUsuario);
-        
+
         usuario = usuarioDao.carregar(usuario.getId());
-        
+
         ViewUtil.adicionarMensagemDeSucesso("Jogo removido da sua lista!");
     }
 

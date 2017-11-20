@@ -1,9 +1,18 @@
 package br.com.trocaJogos.dao;
 
 import br.com.trocaJogos.model.Cidade;
+import br.com.trocaJogos.model.Endereco;
 import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.Usuario;
+import br.com.trocaJogos.util.DistanceMatrixResponse;
+import br.com.trocaJogos.util.Element;
+import br.com.trocaJogos.util.GeoCodeUtil;
 import br.com.trocaJogos.util.HibernateUtil;
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import java.io.IOException;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -87,6 +96,42 @@ public class UsuarioDao extends GenericDao<Usuario> {
                 .list();
 
         return resultado != null && !resultado.isEmpty();
+    }
+
+    public void calculaDistancia(List<Usuario> usuarios, Usuario usuarioOrigem) throws IOException {
+        String latLongOrigem = procuraLatLong(usuarioOrigem.getEndereco());
+        try {
+            for (Usuario usr : usuarios) {
+                String latLongDestino = procuraLatLong(usr.getEndereco());
+
+                DistanceMatrixResponse calcularDistanciaXML = GeoCodeUtil.calcularDistanciaXML(latLongOrigem, latLongDestino);
+                Object row = (Object) calcularDistanciaXML.getRow().get(0);
+                Element element = (Element) row;
+                usr.setDistancia(element.getDistance().getText());
+            }
+        } catch (Exception ex) {
+            usuarioOrigem.setDistancia(" - ");
+        }
+    }
+
+    public String procuraLatLong(Endereco endereco) throws IOException {
+        final Geocoder geocoder = new Geocoder();
+        String latLongOrigem = "";
+
+        StringBuilder enderecoBuilder = new StringBuilder();
+        enderecoBuilder.append(endereco.getLogradouro().getDescricao()).append(", ");
+        enderecoBuilder.append(endereco.getNumero()).append(", ");
+        enderecoBuilder.append(endereco.getCidade().getDisplay());
+
+        GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(enderecoBuilder.toString()).setLanguage("pt").getGeocoderRequest();
+        GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+
+        if (geocoderResponse != null && !geocoderResponse.getResults().isEmpty()) {
+            latLongOrigem = geocoderResponse.getResults().get(0).getGeometry().getLocation().getLat().toString();
+            latLongOrigem += "," + geocoderResponse.getResults().get(0).getGeometry().getLocation().getLng().toString();
+        }
+
+        return latLongOrigem;
     }
 
 }
