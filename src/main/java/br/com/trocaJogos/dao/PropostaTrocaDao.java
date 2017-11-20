@@ -33,6 +33,9 @@ public class PropostaTrocaDao extends GenericDao<PropostaTroca> {
     }
 
     public void carregarListaPor(Usuario usuario) {
+        usuario.getPropostasFeitas().clear();
+        usuario.getPropostasRecebidas().clear();
+        
         List<PropostaTroca> propostasFeitas = hibernateUtil.getSession().createQuery("SELECT p FROM PropostaTroca p WHERE p.usuarioOrigem = :usuarioOrigem")
                 .setParameter("usuarioOrigem", usuario)
                 .list();

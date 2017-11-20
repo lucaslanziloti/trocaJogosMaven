@@ -104,7 +104,13 @@
                             </f:facet>
 
                             <div>
-                                <img id="imgBusca" src="data:image/#{usr.extensao};base64,#{usr.img}" />
+                                <h:panelGroup rendered="#{usr.possuiFoto}">
+                                    <img id="imgBusca" src="data:image/#{usr.extensao};base64,#{usr.img}"/>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup rendered="#{not usr.possuiFoto}">
+                                    <img id="imgBusca" src="#{facesContext.externalContext.request.contextPath}/resources/perfil.jpg"/>
+                                </h:panelGroup>
 
                                 <p:outputLabel value="#{usr.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
                                 <p:outputLabel value="Cidade: #{usr.endereco.cidade.display}"/><br/>

@@ -297,7 +297,7 @@
                         <h:panelGrid style="width: 100%; margin-bottom: 20px;">
                             <h:outputLabel value="Solicitaçoes de Trocas Feitas" styleClass="tituloJogoCadastro"/>
                         </h:panelGrid>
-                        
+
                         <p:dataGrid id="dataGridSolicitacoesFeitas" 
                                     var="propostas" 
                                     value="#{cadastroUsuarioMb.usuario.propostasFeitas}" 
@@ -307,16 +307,23 @@
                                     paginator="true"
                                     paginatorPosition="bottom"
                                     style="margin-top: 15px;"
-                                    emptyMessage="Nenhuma proposta recebida ainda."
+                                    emptyMessage="Nenhuma proposta feita ainda."
                                     styleClass="dataGridBusca"
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
                             <div>
-                                <img id="imgBusca" src="data:image/#{propostas.usuarioOrigem.extensao};base64,#{usr.img}"/>
+                                <h:panelGroup rendered="#{propostas.usuarioDestino.possuiFoto}">
+                                    <img id="imgBusca" src="data:image/#{propostas.usuarioDestino.extensao};base64,#{propostas.usuarioDestino.img}"/>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup rendered="#{not propostas.usuarioDestino.possuiFoto}">
+                                    <img id="imgBusca" src="#{facesContext.externalContext.request.contextPath}/resources/perfil.jpg"/>
+                                </h:panelGroup>
 
-                                <p:outputLabel value="#{propostas.usuarioOrigem.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
-                                <p:outputLabel value="Cidade: #{propostas.usuarioOrigem.endereco.cidade.display}"/><br/>
-                                <p:outputLabel value="Distância entre vocês: #{propostas.usuarioOrigem.distancia}"/><br/>
+                                <p:outputLabel value="#{propostas.usuarioDestino.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
+                                <p:outputLabel value="Cidade: #{propostas.usuarioDestino.endereco.cidade.display}"/><br/>
+                                <p:outputLabel value="Distância entre vocês: #{propostas.usuarioDestino.distancia}"/><br/>
+                                <p:outputLabel value="Jogo Solicitado: #{propostas.jogo.descricao}"/><br/>
                                 <p:outputLabel value="Status: #{propostas.status.descricao}"/>
                             </div>
                         </p:dataGrid>
@@ -327,7 +334,7 @@
                         <h:panelGrid style="width: 100%; margin-bottom: 20px;">
                             <h:outputLabel value="Solicitaçoes de Trocas Recebidas" styleClass="tituloJogoCadastro"/>
                         </h:panelGrid>
-                        
+
                         <p:dataGrid id="dataGridSolicitacoesRecebidas" 
                                     var="propostas" 
                                     value="#{cadastroUsuarioMb.usuario.propostasRecebidas}" 
@@ -342,11 +349,18 @@
                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 
                             <div>
-                                <img id="imgBusca" src="data:image/#{propostas.usuarioOrigem.extensao};base64,#{usr.img}" />
+                                <h:panelGroup rendered="#{propostas.usuarioOrigem.possuiFoto}">
+                                    <img id="imgBusca" src="data:image/#{propostas.usuarioOrigem.extensao};base64,#{propostas.usuarioOrigem.img}"/>
+                                </h:panelGroup>
+                                
+                                <h:panelGroup rendered="#{not propostas.usuarioOrigem.possuiFoto}">
+                                    <img id="imgBusca" src="#{facesContext.externalContext.request.contextPath}/resources/perfil.jpg"/>
+                                </h:panelGroup>
 
                                 <p:outputLabel value="#{propostas.usuarioOrigem.nome}" style="font-weight: bold; margin-top: 100px;"/><br/>
                                 <p:outputLabel value="Cidade: #{propostas.usuarioOrigem.endereco.cidade.display}"/><br/>
                                 <p:outputLabel value="Distância entre vocês: #{propostas.usuarioOrigem.distancia}"/><br/>
+                                <p:outputLabel value="Jogo Solicitado: #{propostas.jogo.descricao}"/><br/>
                                 <p:outputLabel value="Status: #{propostas.status.descricao}"/>
                             </div>
                         </p:dataGrid>
