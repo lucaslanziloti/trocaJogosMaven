@@ -26,7 +26,6 @@ public class CidadeConverter implements Converter {
                     return cidade;
                 }
             } catch (NumberFormatException e) {
-                e.printStackTrace();
                 return new Cidade();
             }
         }

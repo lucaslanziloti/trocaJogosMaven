@@ -18,10 +18,45 @@
                                 <h:outputLabel value="Minha Lista de Desejos" styleClass="tituloJogoCadastro"/>
                             </h:panelGrid>
 
+                            <h:panelGrid>
+                                <h:panelGrid>
+                                    <p:outputLabel for="cidade" value="Filtrar busca por cidade:"/>
+                                    <h:panelGrid columns="2">
+                                        <p:autoComplete id="cidade" 
+                                                        styleClass="autoCompleteCidade"
+                                                        value="#{procuraParaTrocaMb.cidade}" 
+                                                        completeMethod="#{cadastroUsuarioMb.buscaCidade}"
+                                                        converter="cidadeConverter" 
+                                                        rendered="#{not empty procuraParaTrocaMb.usuario.jogosDesejados}"
+                                                        var="cidade"
+                                                        disabled="#{not empty procuraParaTrocaMb.cidade.id}"
+                                                        style="width: 278px;"
+                                                        itemValue="#{cidade}" 
+                                                        itemLabel="#{cidade.display}"
+                                                        minQueryLength="3" 
+                                                        placeholder="Informe ao mínimo 3 caracteres"
+                                                        queryDelay="2000"
+                                                        maxResults="8"
+                                                        forceSelection="true">
+
+                                            <p:ajax event="query" global="false"/>
+                                            <p:ajax event="itemSelect" global="false" update="@this"/>
+                                        </p:autoComplete>
+
+                                        <p:commandButton actionListener="#{procuraParaTrocaMb.limpaCidade()}" 
+                                                         process="@this" 
+                                                         style="margin-left: 10px;"
+                                                         update="cidade :msg"
+                                                         icon="ui-icon-closethick"
+                                                         global="false"
+                                                         iconPos="right"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
                             <p:dataGrid id="catalogoContainer" 
                                         var="jogoDesejado" 
                                         value="#{procuraParaTrocaMb.usuario.jogosDesejados}" 
-                                        rendered="#{not empty procuraParaTrocaMb.usuario.jogosDesejados}"
                                         columns="2" 
                                         layout="grid"
                                         rows="12" 
@@ -29,9 +64,8 @@
                                         paginatorPosition="bottom"
                                         style="margin-top: 15px;"
                                         styleClass="dataGridBusca"
+                                        emptyMessage="Adicione jogo a sua lista de desejos!"
                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-
-
 
                                 <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                     <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
@@ -44,8 +78,9 @@
 
                                     <p:commandButton value="Buscar"
                                                      action="#{procuraParaTrocaMb.buscar(jogoDesejado.jogo)}"
-                                                     process="@this"
+                                                     process=":form:cidade @this"
                                                      icon="ui-icon-search"
+                                                     iconPos="right"
                                                      update="@form :msg"/>
                                 </div>
                             </p:dataGrid>
@@ -79,7 +114,9 @@
                             <p:commandButton value="Solicitar Troca"
                                              action="#{procuraParaTrocaMb.solicitaTroca(usr)}"
                                              process="@this"
-                                             icon="ui-icon-search"
+                                             style="margin-top: 18px;"
+                                             icon="ui-icon-arrowthick-2-e-w"
+                                             iconPos="right"
                                              update="@form :msg"/>
                         </p:dataGrid>
                     </p:panel>

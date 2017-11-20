@@ -5,8 +5,10 @@
  */
 package br.com.trocaJogos.controller;
 
+import br.com.trocaJogos.dao.CidadeDao;
 import br.com.trocaJogos.dao.PropostaTrocaDao;
 import br.com.trocaJogos.dao.UsuarioDao;
+import br.com.trocaJogos.model.Cidade;
 import br.com.trocaJogos.model.Endereco;
 import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.PropostaTroca;
@@ -14,7 +16,6 @@ import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.DistanceMatrixResponse;
 import br.com.trocaJogos.util.Element;
 import br.com.trocaJogos.util.GeoCodeUtil;
-import static br.com.trocaJogos.util.GeoCodeUtil.calcularDistanciaXML;
 import br.com.trocaJogos.util.ViewUtil;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -38,11 +39,13 @@ public class ProcuraParaTrocaMb {
 
     private UsuarioDao usuarioDao = new UsuarioDao();
     private PropostaTrocaDao propostaTrocaDao = new PropostaTrocaDao();
+    private CidadeDao cidadeDao = new CidadeDao();
 
     private Usuario usuario = new Usuario();
     private List<Usuario> usuariosQuePossuemJogo = new ArrayList<>();
 
     private Jogo jogoSelecionado = new Jogo();
+    private Cidade cidade = new Cidade();
 
     @PostConstruct
     private void init() {
@@ -56,7 +59,7 @@ public class ProcuraParaTrocaMb {
     }
 
     public void buscar(Jogo jogo) {
-        usuariosQuePossuemJogo = usuarioDao.buscarUsuarioQuePossui(jogo, usuario);
+        usuariosQuePossuemJogo = usuarioDao.buscarUsuarioQuePossui(jogo, usuario, cidade);
 
         if (usuariosQuePossuemJogo.isEmpty()) {
             ViewUtil.adicionarMensagemDeAlerta("Nenhum usuário possue esse jogo ainda!");
@@ -70,6 +73,14 @@ public class ProcuraParaTrocaMb {
             }
             RequestContext.getCurrentInstance().execute("$('html, body').animate({scrollTop: $('.dataGridBusca').offset().top}, 600);");
         }
+    }
+    
+    public void limpaCidade(){
+        cidade = new Cidade();
+    }
+
+    public List<Cidade> buscaCidade(String query) {
+        return cidadeDao.buscarPorNome(query);
     }
 
     private void calculaDistancia() throws IOException {
@@ -114,10 +125,16 @@ public class ProcuraParaTrocaMb {
         propostaTroca.setUsuarioOrigem(usuario);
         propostaTroca.setUsuarioDestino(usuarioParaTroca);
         propostaTroca.setJogo(jogoSelecionado);
+        
+        if(!propostaTrocaDao.validaTroca(propostaTroca)){
+            ViewUtil.adicionarMensagemDeAlerta("Esta troca já foi solicitada!");
+            
+            return;
+        }
 
         propostaTrocaDao.salvar(propostaTroca);
 
-        ViewUtil.adicionarMensagemDeAlerta("Proposta realizada com sucesso");
+        ViewUtil.adicionarMensagemDeSucesso("Proposta realizada com sucesso");
     }
 
     public Usuario getUsuario() {
@@ -142,5 +159,13 @@ public class ProcuraParaTrocaMb {
 
     public void setJogoSelecionado(Jogo jogoSelecionado) {
         this.jogoSelecionado = jogoSelecionado;
+    }
+
+    public Cidade getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
     }
 }

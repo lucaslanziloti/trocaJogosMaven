@@ -1,9 +1,11 @@
 package br.com.trocaJogos.dao;
 
+import br.com.trocaJogos.model.Cidade;
 import br.com.trocaJogos.model.Jogo;
 import br.com.trocaJogos.model.Usuario;
 import br.com.trocaJogos.util.HibernateUtil;
 import java.util.List;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -44,13 +46,27 @@ public class UsuarioDao extends GenericDao<Usuario> {
         }
     }
 
-    public List<Usuario> buscarUsuarioQuePossui(Jogo jogo, Usuario usuario) {
+    public List<Usuario> buscarUsuarioQuePossui(Jogo jogo, Usuario usuario, Cidade cidade) {
         Session session = hibernateUtil.getSession();
 
-        return session.createQuery("select j.usuario FROM JogoDoUsuario j WHERE j.jogo = :jogo AND j.usuario <> :usuario")
+        StringBuilder hql = new StringBuilder();
+        hql.append("select j.usuario FROM JogoDoUsuario j ");
+        hql.append("WHERE j.jogo = :jogo ");
+        hql.append("AND j.usuario <> :usuario ");
+
+        if (cidade != null && cidade.getId() != null) {
+            hql.append("AND j.usuario.endereco.cidade = :cidade ");
+        }
+
+        Query query = session.createQuery(hql.toString())
                 .setParameter("jogo", jogo)
-                .setParameter("usuario", usuario)
-                .list();
+                .setParameter("usuario", usuario);
+
+        if (cidade != null && cidade.getId() != null) {
+            query.setParameter("cidade", cidade);
+        }
+        
+        return query.list();
     }
 
     public Boolean verificaCpfExiste(String cpf) {
@@ -59,7 +75,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
         List<Usuario> resultado = session.createQuery("select u from Usuario u WHERE u.cpf = :cpf")
                 .setParameter("cpf", cpf)
                 .list();
-        
+
         return resultado != null && !resultado.isEmpty();
     }
 
@@ -69,7 +85,7 @@ public class UsuarioDao extends GenericDao<Usuario> {
         List<Usuario> resultado = session.createQuery("select u from Usuario u WHERE u.email = :email")
                 .setParameter("email", email)
                 .list();
-        
+
         return resultado != null && !resultado.isEmpty();
     }
 
