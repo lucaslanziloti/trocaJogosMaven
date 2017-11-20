@@ -1,8 +1,8 @@
 package br.com.trocaJogos.util;
 
+
 /**
- *
- * @author alci
+ * @author lucas
  */
 public class Distance {
     

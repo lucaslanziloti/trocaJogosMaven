@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author lucas
+ */
 @XmlRootElement
 public class Result implements Serializable {
 
-	private static final long serialVersionUID = -1585721707328817690L;
-	private Geometry geometry;
+    private static final long serialVersionUID = -1585721707328817690L;
+    private Geometry geometry;
     private String formattedAddress;
     private AddressComponent addressComponent;
     private String type;

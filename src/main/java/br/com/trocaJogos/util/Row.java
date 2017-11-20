@@ -1,5 +1,8 @@
 package br.com.trocaJogos.util;
 
+/**
+ * @author lucas
+ */
 public class Row {
 
     private Element element = new Element();

@@ -1,6 +1,9 @@
 package br.com.trocaJogos.util;
 
 
+/**
+ * @author lucas
+ */
 public class Element {
 
     private String status;

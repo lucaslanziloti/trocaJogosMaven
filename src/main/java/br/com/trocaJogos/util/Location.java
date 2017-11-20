@@ -2,6 +2,9 @@ package br.com.trocaJogos.util;
 
 import java.io.Serializable;
 
+/**
+ * @author lucas
+ */
 public class Location implements Serializable {
 
 	private static final long serialVersionUID = -5413369755167243927L;

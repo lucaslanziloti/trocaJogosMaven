@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author alci
+ * @author lucas
  */
 public class DistanceMatrixResponse {
 

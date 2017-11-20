@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author lucas
+ */
 @XmlRootElement
 public class Geometry implements Serializable {
 
