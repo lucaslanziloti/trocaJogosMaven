@@ -57,7 +57,24 @@
                         </h:panelGrid>
 
                         <h:panelGrid styleClass="catalogoContainer">
-                            <ui:repeat value="#{catalogoMb.jogos}" var="jogo" rendered="#{not empty catalogoMb.jogos}" varStatus="status">
+                            <p:dataGrid id="catalogoContainer" 
+                                        var="jogo" 
+                                        value="#{catalogoMb.jogos}" 
+                                        rendered="#{not empty catalogoMb.jogos}"
+                                        columns="2" 
+                                        layout="grid"
+                                        rows="12" 
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        style="margin-top: 15px;"
+                                        styleClass="dataGridBusca"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                                <f:facet name="header">
+                                    Resultado da Busca
+                                </f:facet>
+
+
                                 <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                     <img src="data:image/#{jogo.extensao};base64,#{jogo.img}" class="imgCatalogo"/>
 
@@ -86,7 +103,7 @@
                                                          update=":msg"/>
                                     </div>
                                 </div>
-                            </ui:repeat>
+                            </p:dataGrid>
                         </h:panelGrid>
                     </p:panel>
                 </h:form>

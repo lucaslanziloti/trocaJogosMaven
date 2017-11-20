@@ -18,7 +18,21 @@
                                 <h:outputLabel value="Minha Lista de Desejos" styleClass="tituloJogoCadastro"/>
                             </h:panelGrid>
 
-                            <ui:repeat value="#{procuraParaTrocaMb.usuario.jogosDesejados}" var="jogoDesejado" varStatus="status">
+                            <p:dataGrid id="catalogoContainer" 
+                                        var="jogoDesejado" 
+                                        value="#{procuraParaTrocaMb.usuario.jogosDesejados}" 
+                                        rendered="#{not empty procuraParaTrocaMb.usuario.jogosDesejados}"
+                                        columns="2" 
+                                        layout="grid"
+                                        rows="12" 
+                                        paginator="true"
+                                        paginatorPosition="bottom"
+                                        style="margin-top: 15px;"
+                                        styleClass="dataGridBusca"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+
+
                                 <div class="#{status.odd ? 'direita' : 'esquerda'}">
                                     <img src="data:image/#{jogoDesejado.jogo.extensao};base64,#{jogoDesejado.jogo.img}" class="imgCatalogo"/>
 
@@ -34,7 +48,7 @@
                                                      icon="ui-icon-search"
                                                      update="@form :msg"/>
                                 </div>
-                            </ui:repeat>
+                            </p:dataGrid>
                         </h:panelGrid>
 
                         <p:dataGrid id="usuariosBusca" 
