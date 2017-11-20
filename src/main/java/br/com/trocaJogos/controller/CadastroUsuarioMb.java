@@ -42,6 +42,7 @@ public class CadastroUsuarioMb {
     private PropostaTrocaDao propostaTrocaDao = new PropostaTrocaDao();
 
     private Usuario usuario = new Usuario();
+    private Usuario usuarioSelecionado = new Usuario();
 
     private UploadedFile file;
     private File anexo;
@@ -236,4 +237,11 @@ public class CadastroUsuarioMb {
         this.extensao = extensao;
     }
 
+    public Usuario getUsuarioSelecionado() {
+        return usuarioSelecionado;
+    }
+
+    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
+    }
 }

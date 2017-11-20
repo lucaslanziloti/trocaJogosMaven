@@ -232,15 +232,6 @@
                                                              process="@this"
                                                              icon="ui-icon-closethick"
                                                              update="@form :msg"/>
-
-                                            <br/>
-
-                                            <p:commandButton value="Já possuo"
-                                                             action="#{cadastroUsuarioMb.transfromaJogoDesejadoEmJogoDoUsuario(jogoDesejado)}"
-                                                             process="@this"
-                                                             icon="ui-icon-check"
-                                                             style="margin-top: 10px;"
-                                                             update="@form :msg"/>
                                         </div>
                                     </div>
                                 </p:dataGrid>
@@ -315,7 +306,7 @@
                                 <h:panelGroup rendered="#{propostas.usuarioDestino.possuiFoto}">
                                     <img id="imgBusca" src="data:image/#{propostas.usuarioDestino.extensao};base64,#{propostas.usuarioDestino.img}"/>
                                 </h:panelGroup>
-                                
+
                                 <h:panelGroup rendered="#{not propostas.usuarioDestino.possuiFoto}">
                                     <img id="imgBusca" src="#{facesContext.externalContext.request.contextPath}/resources/perfil.jpg"/>
                                 </h:panelGroup>
@@ -330,7 +321,6 @@
                     </p:tab>
 
                     <p:tab id="solicitacoesRecebidas" title="Solicitaçoes Recebidas" rendered="#{loginMb.estaLogado}">
-
                         <h:panelGrid style="width: 100%; margin-bottom: 20px;">
                             <h:outputLabel value="Solicitaçoes de Trocas Recebidas" styleClass="tituloJogoCadastro"/>
                         </h:panelGrid>
@@ -352,7 +342,7 @@
                                 <h:panelGroup rendered="#{propostas.usuarioOrigem.possuiFoto}">
                                     <img id="imgBusca" src="data:image/#{propostas.usuarioOrigem.extensao};base64,#{propostas.usuarioOrigem.img}"/>
                                 </h:panelGroup>
-                                
+
                                 <h:panelGroup rendered="#{not propostas.usuarioOrigem.possuiFoto}">
                                     <img id="imgBusca" src="#{facesContext.externalContext.request.contextPath}/resources/perfil.jpg"/>
                                 </h:panelGroup>
@@ -362,10 +352,46 @@
                                 <p:outputLabel value="Distância entre vocês: #{propostas.usuarioOrigem.distancia}"/><br/>
                                 <p:outputLabel value="Jogo Solicitado: #{propostas.jogo.descricao}"/><br/>
                                 <p:outputLabel value="Status: #{propostas.status.descricao}"/>
+
+                                <p:commandButton value="Ver jogos do usuário"
+                                                 icon="ui-icon-info"
+                                                 iconPos="right"
+                                                 process="@this"
+                                                 onclick="PF('dialogJogosDoUsuario').show();"
+                                                 style="margin-top: 5px;"
+                                                 update=":dialogJogos :msg">
+
+                                    <f:setPropertyActionListener 
+                                        target="#{cadastroUsuarioMb.usuarioSelecionado}"
+                                        value="#{propostas.usuarioOrigem}"/>
+                                </p:commandButton>
+
                             </div>
                         </p:dataGrid>
                     </p:tab>
                 </p:tabView>
+
+                <p:dialog header="Jogos do Usuário" modal="true" width="820" widgetVar="dialogJogosDoUsuario" style="max-width: 500px;">
+                    <h:panelGroup  id="dialogJogos">
+                        <p:dataTable var="jogosDoUsuario" value="#{cadastroUsuarioMb.usuarioSelecionado.jogosDoUsuario}" style="margin-top:40px">
+                            <f:facet name="header">
+                                Jogos que o usuário possui
+                            </f:facet>
+
+                            <p:column headerText="Descrição">
+                                <h:outputText value="#{jogosDoUsuario.jogo.descricao}" />
+                            </p:column>
+
+                            <p:column headerText="Plataforma">
+                                <h:outputText value="#{jogosDoUsuario.jogo.plataforma.descricao}" />
+                            </p:column>
+
+                            <p:column headerText="Gênero">
+                                <h:outputText value="#{jogosDoUsuario.jogo.genero.descricao}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGroup>
+                </p:dialog>
             </ui:define>
         </ui:composition>
     </h:body>
